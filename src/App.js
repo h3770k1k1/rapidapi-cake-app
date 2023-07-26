@@ -1,5 +1,5 @@
 import "./App.css";
-import RecipePage from "./components/RecipePage";
+import RecipesList from "./components/RecipesList";
 import Navbar from "./components/Navbar";
 import SearchBar from "./components/SearchBar";
 import FiltersDropDown from "./components/FiltersDropDown";
@@ -66,7 +66,7 @@ function App() {
 					<p>Selected Filter: {currentFilter || "None"}</p>
 				</Grid>
 			</Grid>
-			<RecipePage />
+			<RecipesList />
 		</div>
 	);
 }
