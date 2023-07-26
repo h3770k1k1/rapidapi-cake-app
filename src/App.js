@@ -2,8 +2,22 @@ import "./App.css";
 import RecipePage from "./components/RecipePage";
 import Navbar from "./components/Navbar";
 import SearchBar from "./components/SearchBar";
-
+import FiltersDropDown from "./components/FiltersDropDown";
+import React, { useState } from 'react';
 function App() {
+	const [currentFilter, setCurrentFilter] = useState("");
+
+	const handleFilterChange = (selectedFilter) => {
+		setCurrentFilter(selectedFilter);
+		// Tutaj możesz dodać logikę, która reaguje na zmianę filtra.
+		// Na przykład możesz odświeżyć dane zgodnie z nowo wybranym filtrem.
+	};
+	const filters = [
+		{ label: "Option 1", value: "option1" },
+		{ label: "Option 2", value: "option2" },
+		{ label: "Option 3", value: "option3" },
+	];
+
 	const url = "https://the-birthday-cake-db.p.rapidapi.com/";
 	const options = {
 		method: "GET",
@@ -29,11 +43,18 @@ function App() {
 	};
 
 	return (
-		
-		<div className="App"><Navbar/>
-		{/*<button id="myButton" onClick={handleButtonClick}>	button
+		<div className="App">
+			<Navbar />
+			{/*<button id="myButton" onClick={handleButtonClick}>	button
 			</button>*/}
-		<SearchBar/>
+			<SearchBar />
+			<div>
+				<FiltersDropDown
+					filters={filters}
+					onFilterChange={handleFilterChange}
+				/>
+				<p>Selected Filter: {currentFilter || "None"}</p>
+			</div>
 			<RecipePage />
 		</div>
 	);

@@ -8,6 +8,7 @@ const SearchBar = () => {
 		<form>
 			<TextField
 				label="Lorem ipsum"
+				sx={{ width: "40%" }}
 				InputProps={{
 					endAdornment: (
 						<InputAdornment>
