@@ -3,7 +3,8 @@ import RecipePage from "./components/RecipePage";
 import Navbar from "./components/Navbar";
 import SearchBar from "./components/SearchBar";
 import FiltersDropDown from "./components/FiltersDropDown";
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { Grid } from "@mui/material";
 function App() {
 	const [currentFilter, setCurrentFilter] = useState("");
 
@@ -47,14 +48,24 @@ function App() {
 			<Navbar />
 			{/*<button id="myButton" onClick={handleButtonClick}>	button
 			</button>*/}
-			<SearchBar />
-			<div>
-				<FiltersDropDown
-					filters={filters}
-					onFilterChange={handleFilterChange}
-				/>
-				<p>Selected Filter: {currentFilter || "None"}</p>
-			</div>
+
+			<Grid
+				container
+				direction="column"
+				spacing={"1%"}
+				sx={{ marginTop: "1%" }}
+			>
+				<Grid item>
+					<SearchBar />
+				</Grid>
+				<Grid item>
+					<FiltersDropDown
+						filters={filters}
+						onFilterChange={handleFilterChange}
+					/>
+					<p>Selected Filter: {currentFilter || "None"}</p>
+				</Grid>
+			</Grid>
 			<RecipePage />
 		</div>
 	);
