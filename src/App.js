@@ -5,50 +5,24 @@ import SearchBar from "./components/SearchBar";
 import FiltersDropDown from "./components/FiltersDropDown";
 import React, { useState } from "react";
 import { Grid } from "@mui/material";
-function App() {
-	const [currentFilter, setCurrentFilter] = useState("");
 
-	const handleFilterChange = (selectedFilter) => {
-		setCurrentFilter(selectedFilter);
-		// Tutaj możesz dodać logikę, która reaguje na zmianę filtra.
-		// Na przykład możesz odświeżyć dane zgodnie z nowo wybranym filtrem.
+function App() {
+	const [selectedFilters, setSelectedFilters] = useState([]);
+
+	const handleFilterChange = (selectedValues) => {
+		setSelectedFilters(selectedValues);
+		// Możesz dodać dowolną logikę reakcji na zmianę wybranych filtrów.
 	};
+
 	const filters = [
 		{ label: "Option 1", value: "option1" },
 		{ label: "Option 2", value: "option2" },
 		{ label: "Option 3", value: "option3" },
 	];
 
-	const url = "https://the-birthday-cake-db.p.rapidapi.com/";
-	const options = {
-		method: "GET",
-		headers: {
-			"X-RapidAPI-Key": "803d7d600emshe3481c95cd86cf9p11480cjsn6465da821ec9",
-			"X-RapidAPI-Host": "the-birthday-cake-db.p.rapidapi.com",
-		},
-	};
-
-	const fetchData = async () => {
-		try {
-			const response = await fetch(url, options);
-			const result = await response.json();
-
-			console.log(result);
-		} catch (error) {
-			console.error(error);
-		}
-	};
-
-	const handleButtonClick = () => {
-		fetchData();
-	};
-
 	return (
 		<div className="App">
-			<Navbar />
-			{/*<button id="myButton" onClick={handleButtonClick}>	button
-			</button>*/}
-
+			<Navbar/>
 			<Grid
 				container
 				direction="column"
@@ -61,9 +35,13 @@ function App() {
 				<Grid item>
 					<FiltersDropDown
 						filters={filters}
+						selectedFilters={selectedFilters}
 						onFilterChange={handleFilterChange}
 					/>
-					<p>Selected Filter: {currentFilter || "None"}</p>
+					<p>
+						Selected Filters:{" "}
+						{selectedFilters.length > 0 ? selectedFilters.join(", ") : "None"}
+					</p>
 				</Grid>
 			</Grid>
 			<RecipesList />

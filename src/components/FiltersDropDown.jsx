@@ -1,25 +1,39 @@
 import React from "react";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
-const FiltersDropDown = ({ filters, onFilterChange }) => {
+const SelectOption = ({ children, ...props }) => {
+	const { value } = props;
+	const selectedFilters = Array.isArray(props.value)
+		? props.value
+		: [props.value];
+
+	return (
+		<MenuItem {...props} selected={selectedFilters.includes(value)}>
+			{children}
+		</MenuItem>
+	);
+};
+
+const FiltersDropDown = ({ filters, selectedFilters, onFilterChange }) => {
 	const handleFilterChange = (event) => {
-		const selectedValue = event.target.value;
-		onFilterChange(selectedValue);
+		const selectedValues = event.target.value;
+		onFilterChange(selectedValues);
 	};
+
 	return (
 		<FormControl fullWidth variant="outlined" sx={{ width: "40%" }}>
 			<InputLabel id="filter-label">Choose a filter:</InputLabel>
 			<Select
 				labelId="filter-label"
 				label="Choose a filter:"
-				defaultValue=""
+				value={selectedFilters}
+				multiple
 				onChange={handleFilterChange}
 			>
-				<MenuItem value="">All</MenuItem>
 				{filters.map((filter, index) => (
-					<MenuItem key={index} value={filter.value}>
+					<SelectOption key={index} value={filter.value}>
 						{filter.label}
-					</MenuItem>
+					</SelectOption>
 				))}
 			</Select>
 		</FormControl>
