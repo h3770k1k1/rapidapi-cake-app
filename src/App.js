@@ -22,12 +22,12 @@ function App() {
 
 	return (
 		<div className="App">
-			<Navbar/>
+			<Navbar />
 			<Grid
 				container
 				direction="column"
-				spacing={"1%"}
-				sx={{ marginTop: "1%" }}
+				spacing={"1.5%"}
+				sx={{ marginTop: "1%", marginBottom: "1%" }}
 			>
 				<Grid item>
 					<SearchBar />
@@ -38,10 +38,6 @@ function App() {
 						selectedFilters={selectedFilters}
 						onFilterChange={handleFilterChange}
 					/>
-					<p>
-						Selected Filters:{" "}
-						{selectedFilters.length > 0 ? selectedFilters.join(", ") : "None"}
-					</p>
 				</Grid>
 			</Grid>
 			<RecipesList />
