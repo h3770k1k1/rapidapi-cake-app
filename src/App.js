@@ -22,6 +22,7 @@ function App() {
 	return (
 		<div className="App">
 			<Navbar />
+			
 			<Grid
 				container
 				direction="column"

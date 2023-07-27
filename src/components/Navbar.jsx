@@ -23,7 +23,9 @@ const Navbar = () => {
 				</Typography>
 			</Box>
 			<Box sx={{ display: "flex", alignItems: "center" }}>
-				<FavoriteIcon fontSize="large" />
+				<a href="/favourites">
+					<FavoriteIcon fontSize="large"></FavoriteIcon>
+				</a>
 			</Box>
 		</AppBar>
 	);
