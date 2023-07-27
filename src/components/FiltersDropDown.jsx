@@ -1,18 +1,6 @@
 import React from "react";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-
-const SelectOption = ({ children, ...props }) => {
-	const { value } = props;
-	const selectedFilters = Array.isArray(props.value)
-		? props.value
-		: [props.value];
-
-	return (
-		<MenuItem {...props} selected={selectedFilters.includes(value)}>
-			{children}
-		</MenuItem>
-	);
-};
+import SelectOption from "./SelectOption"; // Update the file path if necessary
 
 const FiltersDropDown = ({ filters, selectedFilters, onFilterChange }) => {
 	const handleFilterChange = (event) => {

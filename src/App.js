@@ -11,7 +11,6 @@ function App() {
 
 	const handleFilterChange = (selectedValues) => {
 		setSelectedFilters(selectedValues);
-		// Możesz dodać dowolną logikę reakcji na zmianę wybranych filtrów.
 	};
 
 	const filters = [

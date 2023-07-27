@@ -7,7 +7,7 @@ const SearchBar = () => {
 	return (
 		<form>
 			<TextField
-				label="Lorem ipsum"
+				label="Search recipe by name"
 				sx={{ width: "40%" }}
 				InputProps={{
 					endAdornment: (
