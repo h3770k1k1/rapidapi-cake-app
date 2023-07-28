@@ -5,7 +5,7 @@ import reportWebVitals from "./reportWebVitals";
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import FavouritesPage from "./components/FavouritesPage";
+import FavouritesPage from "./components/subpages/FavouritesPage";
 
 const router = createBrowserRouter([
 	{
@@ -19,10 +19,7 @@ const router = createBrowserRouter([
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-	<RouterProvider router={router}/>
-	
-);
+root.render(<RouterProvider router={router} />);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

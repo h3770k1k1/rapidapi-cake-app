@@ -1,9 +1,9 @@
 import React from "react";
-import SearchBar from "./SearchBar";
+import SearchBar from "../SearchBar";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Grid from "@mui/material/Grid";
 import "./FavouritesPage.css";
-import RecipesList from "./RecipesList";
+import RecipesList from "../RecipesList";
 
 const FavouritesPage = () => {
 	return (
