@@ -65,13 +65,6 @@ const Navbar = () => {
 					>
 						{/* Wyświetlamy komponent LoginContainer w okienku */}
 						<Login />
-						<Button
-							onClick={handleCloseModal}
-							variant="contained"
-							color="primary"
-						>
-							Zamknij
-						</Button>
 					</Box>
 				</Fade>
 			</Modal>
