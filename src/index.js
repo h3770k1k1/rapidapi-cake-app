@@ -6,6 +6,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import FavouritesPage from "./components/subpages/FavouritesPage";
+import Recipe from "./components/subpages/Recipe";
 
 const router = createBrowserRouter([
 	{
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
 	{
 		path: "/favourites",
 		element: <FavouritesPage />,
+	},
+	{
+		path: "/recipe",
+		element: <Recipe />,
 	},
 ]);
 

@@ -1,9 +1,34 @@
-import React from "react";
-import { TextField, Button, Container, Typography } from "@mui/material";
+import React, { useState } from "react";
+import {
+	Box,
+	Modal,
+	TextField,
+	Button,
+	Container,
+	Typography,
+	Backdrop,
+	Fade,
+} from "@mui/material";
 import Logo from "./Logo";
+import SignUp from "./SignUp";
 import "./Login.css";
 
 const LoginContainer = () => {
+	const [showSignUp, setShowSignUp] = useState(false);
+	const [isModalOpen, setIsModalOpen] = useState(false);
+
+	const handleSignUpClick = () => {
+		setShowSignUp(true);
+	};
+
+	const handleOpenModal = () => {
+		setIsModalOpen(true);
+	};
+
+	const handleCloseModal = () => {
+		setIsModalOpen(false);
+	};
+
 	return (
 		<Container
 			maxWidth="xs" // Set the maxWidth to "xs" for a narrower container
@@ -21,37 +46,69 @@ const LoginContainer = () => {
 					variant="h6"
 					style={{ marginTop: "20px", marginBottom: "10px" }}
 				>
-					{/* Add margin to the Typography component */}
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
 					eiusmod tempor incididunt ut labore et dolore magna aliqua.
 				</Typography>
-			</div>
-			<div>
-				<TextField
-					label="Nazwa użytkownika"
-					variant="outlined"
-					fullWidth
-					margin="normal"
-				/>
-				<TextField
-					type="password"
-					label="Hasło"
-					variant="outlined"
-					fullWidth
-					margin="normal"
-				/>
-				<a href="/favourites">
-					<Button
-						variant="contained"
-						color="primary"
-						style={{ marginTop: "10px", marginBottom: "10px" }}
+				<div>
+					<TextField
+						label="Nazwa użytkownika"
+						variant="outlined"
+						fullWidth
+						margin="normal"
+					/>
+					<TextField
+						type="password"
+						label="Hasło"
+						variant="outlined"
+						fullWidth
+						margin="normal"
+					/>
+					<a href="/favourites">
+						<Button
+							variant="contained"
+							color="primary"
+							style={{ marginTop: "10px", marginBottom: "10px" }}
+						>
+							Log in
+						</Button>
+					</a>
+					<Typography
+						variant="h6"
+						onClick={handleOpenModal}
+						style={{ cursor: "pointer" }}
 					>
-						{/* Add margin to the Button component */}
-						Log in
-					</Button>
-				</a>
-				<Typography variant="h6">Not a member? Sign up</Typography>
+						Not a member? Sign up
+					</Typography>
+				</div>
 			</div>
+
+			<Modal
+				open={isModalOpen}
+				onClose={handleCloseModal}
+				closeAfterTransition
+				BackdropComponent={Backdrop}
+				BackdropProps={{
+					timeout: 500,
+				}}
+			>
+				<Fade in={isModalOpen}>
+					<Box
+						sx={{
+							position: "absolute",
+							top: "50%",
+							left: "50%",
+							transform: "translate(-50%, -50%)",
+							bgcolor: "white",
+							boxShadow: 24,
+							p: 4,
+							borderRadius: "4px",
+							outline: "none",
+						}}
+					>
+						<SignUp />
+					</Box>
+				</Fade>
+			</Modal>
 		</Container>
 	);
 };
