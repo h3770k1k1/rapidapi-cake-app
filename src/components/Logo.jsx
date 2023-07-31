@@ -8,13 +8,14 @@ const Logo = () => {
 				display: "flex",
 				justifyContent: "center",
 				alignItems: "center",
-				width: "50px",
-				height: "50px",
+				width: "100px",
+				height: "100px",
 				borderRadius: "50%",
-				backgroundColor: "#007bff", 
+				backgroundColor: "#007bff",
+				margin: "auto",
 			}}
 		>
-			<Typography variant="h6" sx={{ color: "#fff" }}>
+			<Typography variant="h4" sx={{ color: "#fff" }}>
 				Logo
 			</Typography>
 		</Box>

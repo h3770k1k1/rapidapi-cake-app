@@ -36,7 +36,9 @@ const Navbar = () => {
 					</Typography>
 				</Box>
 				<Box sx={{ display: "flex", alignItems: "center" }}>
-					<FavoriteIcon fontSize="large" onClick={handleOpenModal} />
+					
+						<FavoriteIcon fontSize="large" onClick={handleOpenModal} />
+					
 				</Box>
 			</AppBar>
 
