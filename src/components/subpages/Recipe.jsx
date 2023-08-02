@@ -7,6 +7,10 @@ import CakeIcon from "@mui/icons-material/Cake";
 import List from "@mui/material/List";
 import Collapse from "@mui/material/Collapse";
 import React, { useState } from "react";
+import "./Recipe.css";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import IosShareIcon from "@mui/icons-material/IosShare";
+import Fab from "@mui/material/Fab";
 const Recipe = () => {
 	const [expanded, setExpanded] = useState(false);
 
@@ -14,7 +18,24 @@ const Recipe = () => {
 		setExpanded(!expanded);
 	};
 	return (
-		<div>
+		<div className="recipe">
+			<Container
+				sx={{
+					display: "flex",
+					justifyContent: "space-between",
+					width: "11vw",
+					position: "fixed",
+					marginLeft: "87vw",
+					marginTop: "87vh",
+				}}
+			>
+				<Fab aria-label="like">
+					<FavoriteIcon />
+				</Fab>
+				<Fab aria-label="share">
+					<IosShareIcon />
+				</Fab>
+			</Container>
 			<Box
 				sx={{ backgroundColor: "pink", width: "100vw", height: "40vh" }}
 			></Box>
@@ -63,7 +84,14 @@ const Recipe = () => {
 						<ListItemText primary="Ingredient 3" />
 					</ListItem>
 				</List>{" "}
-				<Container sx={{ backgroundColor: "#D8D9DA" }}>
+				<Container
+					sx={{
+						backgroundColor: "#D8D9DA",
+						marginBottom: "5%",
+						paddingTop: "1%",
+						paddingBottom: "1%",
+					}}
+				>
 					<Typography
 						variant="h6"
 						onClick={handleExpandClick}
