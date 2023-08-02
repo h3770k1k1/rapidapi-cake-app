@@ -4,6 +4,8 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import Grid from "@mui/material/Grid";
 import "./FavouritesPage.css";
 import RecipesList from "../RecipesList";
+import { ThemeProvider } from "@mui/material/styles";
+import { theme } from "./theme";
 
 const FavouritesPage = () => {
 	return (

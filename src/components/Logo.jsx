@@ -11,7 +11,7 @@ const Logo = () => {
 				width: "100px",
 				height: "100px",
 				borderRadius: "50%",
-				backgroundColor: "#007bff",
+				backgroundColor: "primary.dark",
 				margin: "auto",
 			}}
 		>

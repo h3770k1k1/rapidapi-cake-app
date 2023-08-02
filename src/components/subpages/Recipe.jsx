@@ -11,6 +11,7 @@ import CookingStep from "../CookingStep";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import Fab from "@mui/material/Fab";
+
 const Recipe = () => {
 	const [expanded, setExpanded] = useState(false);
 

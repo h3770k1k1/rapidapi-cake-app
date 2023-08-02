@@ -74,10 +74,21 @@ const LoginContainer = () => {
 					</a>
 					<Typography
 						variant="h6"
-						onClick={handleOpenModal}
-						style={{ cursor: "pointer" }}
+						style={{
+							display: "flex",
+							flexDirection: "row",
+							justifyContent: "center",
+						}}
 					>
-						Not a member? Sign up
+						Not a member?{" "}
+						<Typography
+							variant="h6"
+							onClick={handleOpenModal}
+							sx={{ textDecoration: "underline", cursor: "pointer" }}
+						>
+							{" "}
+							Sign up
+						</Typography>
 					</Typography>
 				</div>
 			</div>

@@ -5,6 +5,8 @@ import SearchBar from "./components/SearchBar";
 import FiltersDropDown from "./components/FiltersDropDown";
 import React, { useState } from "react";
 import { Grid } from "@mui/material";
+import { ThemeProvider } from "@mui/material/styles";
+import { theme } from "./theme";
 
 function App() {
 	const [selectedFilters, setSelectedFilters] = useState([]);
@@ -21,26 +23,28 @@ function App() {
 
 	return (
 		<div className="App">
-			<Navbar />
-			
-			<Grid
-				container
-				direction="column"
-				spacing={"1.5%"}
-				sx={{ marginTop: "1%", marginBottom: "1%" }}
-			>
-				<Grid item>
-					<SearchBar />
+			<ThemeProvider theme={theme}>
+				<Navbar />
+
+				<Grid
+					container
+					direction="column"
+					spacing={"1.5%"}
+					sx={{ marginTop: "1%", marginBottom: "1%" }}
+				>
+					<Grid item>
+						<SearchBar />
+					</Grid>
+					<Grid item>
+						<FiltersDropDown
+							filters={filters}
+							selectedFilters={selectedFilters}
+							onFilterChange={handleFilterChange}
+						/>
+					</Grid>
 				</Grid>
-				<Grid item>
-					<FiltersDropDown
-						filters={filters}
-						selectedFilters={selectedFilters}
-						onFilterChange={handleFilterChange}
-					/>
-				</Grid>
-			</Grid>
-			<RecipesList />
+				<RecipesList />
+			</ThemeProvider>
 		</div>
 	);
 }
