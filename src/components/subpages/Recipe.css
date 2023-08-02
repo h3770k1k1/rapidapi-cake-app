@@ -2,3 +2,13 @@
     margin: 0;
     padding: 0;
 }
+
+.recipe-element{
+    margin-top: 2%;
+}
+.recipe-element:hover {
+    background-color: #eaeaea;
+}
+.cooking-step:hover{
+    background-color: rgba(0, 0, 0, 0);
+}
