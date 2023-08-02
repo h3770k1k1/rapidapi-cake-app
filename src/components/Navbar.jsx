@@ -22,7 +22,8 @@ const Navbar = () => {
 			<AppBar
 				position="static"
 				sx={{
-					bgcolor: "grey",
+					bgcolor: "#D8D9DA",
+					color:"black",
 					height: "10vh",
 					display: "flex",
 					flexDirection: "row",
@@ -36,9 +37,7 @@ const Navbar = () => {
 					</Typography>
 				</Box>
 				<Box sx={{ display: "flex", alignItems: "center" }}>
-					
-						<FavoriteIcon fontSize="large" onClick={handleOpenModal} />
-					
+					<FavoriteIcon fontSize="large" onClick={handleOpenModal} />
 				</Box>
 			</AppBar>
 
