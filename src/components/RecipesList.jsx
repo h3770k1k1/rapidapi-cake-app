@@ -1,6 +1,17 @@
-import React from "react";
-import { Grid, Card, CardContent, Typography, Container } from "@mui/material";
-import { Link } from "react-router-dom"; // Importujemy Link z React Router
+import React, { useState } from "react";
+import {
+	Grid,
+	Card,
+	CardContent,
+	Typography,
+	Container,
+	IconButton,
+	ButtonGroup,
+} from "@mui/material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import IosShareIcon from "@mui/icons-material/IosShare";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { Link } from "react-router-dom";
 
 function RecipesList() {
 	const recipes = [
@@ -21,14 +32,28 @@ function RecipesList() {
 		},
 	];
 
+	// Stan, który będzie określał, na którym przepisie nastąpiło najechanie
+	const [hoveredRecipeId, setHoveredRecipeId] = useState(null);
+
+	// Funkcje obsługujące najechanie i opuszczenie karty (Card)
+	const handleMouseEnter = (recipeId) => {
+		setHoveredRecipeId(recipeId);
+	};
+
+	const handleMouseLeave = () => {
+		setHoveredRecipeId(null);
+	};
+
 	return (
 		<Container maxWidth="md">
 			<Grid container spacing={3}>
 				{recipes.map((recipe) => (
 					<Grid item key={recipe.id} xs={12}>
-						{/* Używamy Link z React Router, aby przekierować na stronę Recipe.jsx */}
 						<Link to={`/recipe`} style={{ textDecoration: "none" }}>
-							<Card>
+							<Card
+								onMouseEnter={() => handleMouseEnter(recipe.id)}
+								onMouseLeave={handleMouseLeave}
+							>
 								<CardContent>
 									<Typography variant="h4" component="h2" gutterBottom>
 										{recipe.title}
@@ -37,6 +62,19 @@ function RecipesList() {
 										{recipe.description}
 									</Typography>
 								</CardContent>
+								{/* Pokaż ButtonGroup tylko na najechanym przepisie */}
+								{hoveredRecipeId === recipe.id && (
+									<Grid container justifyContent="flex-end">
+										<Grid item sx={{ marginTop: "-4%" }}>
+											<IconButton>
+												<FavoriteIcon />
+											</IconButton>
+											<IconButton>
+												<IosShareIcon />
+											</IconButton>
+										</Grid>
+									</Grid>
+								)}
 							</Card>
 						</Link>
 					</Grid>
