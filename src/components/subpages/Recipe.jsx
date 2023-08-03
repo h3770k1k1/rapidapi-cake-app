@@ -13,8 +13,10 @@ import IosShareIcon from "@mui/icons-material/IosShare";
 import Fab from "@mui/material/Fab";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./theme";
+import { useParams } from "react-router-dom";
 
 const Recipe = () => {
+	const { title } = useParams();
 	const [expanded, setExpanded] = useState(false);
 
 	const handleExpandClick = () => {
@@ -41,14 +43,18 @@ const Recipe = () => {
 					</Fab>
 				</Container>
 				<Box
-					sx={{ backgroundColor: "secondary.main", width: "100vw", height: "40vh" }}
+					sx={{
+						backgroundColor: "secondary.main",
+						width: "100vw",
+						height: "40vh",
+					}}
 				></Box>
 				<Container
 					maxWidth="lg"
 					sx={{ marginTop: "2%", display: "flex", flexDirection: "column" }}
 				>
 					<div className="recipe-element">
-						<Typography variant="h4">Cake Name</Typography>
+						<Typography variant="h4">{title}</Typography>
 					</div>
 					<div className="recipe-element">
 						<Typography

@@ -20,7 +20,7 @@ const Navbar = () => {
 	return (
 		<>
 			<AppBar
-				position="static"
+				position="sticky"
 				sx={{
 					bgcolor: "primary.main",
 					color: "black",

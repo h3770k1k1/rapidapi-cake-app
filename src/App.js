@@ -8,6 +8,7 @@ import { Grid } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./theme";
 import LoadRecipesButton from "./components/LoadRecipesButton";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 function App() {
 	const [selectedFilters, setSelectedFilters] = useState([]);
@@ -64,6 +65,7 @@ function App() {
 					</Grid>
 				</Grid>
 				<LoadRecipesButton onClick={handleLoadRecipesClick} />
+				{/* Przekazujemy dane przepisów jako props do komponentu RecipesList */}
 				{recipesData && <RecipesList recipes={recipesData} />}{" "}
 				{/* Renderujemy RecipesList tylko, jeśli mamy dane przepisów */}
 			</ThemeProvider>
