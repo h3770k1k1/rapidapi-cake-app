@@ -5,26 +5,28 @@ import Grid from "@mui/material/Grid";
 import "./FavouritesPage.css";
 import RecipesList from "../RecipesList";
 import { ThemeProvider } from "@mui/material/styles";
-import { theme } from "./theme";
+import { theme } from "./theme.js";
 
 const FavouritesPage = () => {
 	return (
 		<div className="Favourites">
-			<Grid
-				container
-				direction="column"
-				spacing={"1.5%"}
-				sx={{ marginTop: "1%", marginBottom: "1%" }}
-			>
-				<Grid item>
-					<FavoriteIcon style={{ fontSize: 60 }} />
-					<h1>XYZ's Favourites</h1>
+			<ThemeProvider theme={theme}>
+				<Grid
+					container
+					direction="column"
+					spacing={"1.5%"}
+					sx={{ marginTop: "1%", marginBottom: "1%" }}
+				>
+					<Grid item>
+						<FavoriteIcon style={{ fontSize: 60 }} />
+						<h1>XYZ's Favourites</h1>
+					</Grid>
+					<Grid item>
+						<SearchBar />
+					</Grid>
 				</Grid>
-				<Grid item>
-					<SearchBar />
-				</Grid>
-			</Grid>
-			<RecipesList />
+				<RecipesList />
+			</ThemeProvider>
 		</div>
 	);
 };
