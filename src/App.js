@@ -7,9 +7,11 @@ import React, { useState } from "react";
 import { Grid } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./theme";
+import LoadRecipesButton from "./components/LoadRecipesButton";
 
 function App() {
 	const [selectedFilters, setSelectedFilters] = useState([]);
+	const [recipesData, setRecipesData] = useState(null); // Nowy stan do przechowywania danych przepisów
 
 	const handleFilterChange = (selectedValues) => {
 		setSelectedFilters(selectedValues);
@@ -21,11 +23,29 @@ function App() {
 		{ label: "Option 3", value: "option3" },
 	];
 
+	const handleLoadRecipesClick = async () => {
+		const url = "https://the-birthday-cake-db.p.rapidapi.com/";
+		const options = {
+			method: "GET",
+			headers: {
+				"X-RapidAPI-Key": "",
+				"X-RapidAPI-Host": "the-birthday-cake-db.p.rapidapi.com",
+			},
+		};
+
+		try {
+			const response = await fetch(url, options);
+			const result = await response.json(); // Używamy response.json() zamiast response.text(), aby otrzymać dane jako obiekt JSON
+			setRecipesData(result); // Ustawiamy dane przepisów w stanie komponentu
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 	return (
 		<div className="App">
 			<ThemeProvider theme={theme}>
 				<Navbar />
-
 				<Grid
 					container
 					direction="column"
@@ -43,7 +63,9 @@ function App() {
 						/>
 					</Grid>
 				</Grid>
-				<RecipesList />
+				<LoadRecipesButton onClick={handleLoadRecipesClick} />
+				{recipesData && <RecipesList recipes={recipesData} />}{" "}
+				{/* Renderujemy RecipesList tylko, jeśli mamy dane przepisów */}
 			</ThemeProvider>
 		</div>
 	);

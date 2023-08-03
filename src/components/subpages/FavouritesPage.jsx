@@ -3,7 +3,7 @@ import SearchBar from "../SearchBar";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Grid from "@mui/material/Grid";
 import "./FavouritesPage.css";
-import RecipesList from "../RecipesList";
+import FavouriteRecipesList from "../FavouriteRecipesList";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./theme.js";
 
@@ -25,7 +25,7 @@ const FavouritesPage = () => {
 						<SearchBar />
 					</Grid>
 				</Grid>
-				<RecipesList />
+				<FavouriteRecipesList />
 			</ThemeProvider>
 		</div>
 	);
