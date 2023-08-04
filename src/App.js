@@ -8,7 +8,7 @@ import { Grid } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./theme";
 import LoadRecipesButton from "./components/LoadRecipesButton";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
 
 function App() {
 	const [selectedFilters, setSelectedFilters] = useState([]);
@@ -19,9 +19,9 @@ function App() {
 	};
 
 	const filters = [
-		{ label: "Option 1", value: "option1" },
-		{ label: "Option 2", value: "option2" },
-		{ label: "Option 3", value: "option3" },
+		{ label: "Easy", value: "Easy" },
+		{ label: "Medium", value: "Medium" },
+		{ label: "A challange", value: "A challange" },
 	];
 
 	const handleLoadRecipesClick = async () => {
@@ -37,7 +37,8 @@ function App() {
 		try {
 			const response = await fetch(url, options);
 			const result = await response.json(); // Używamy response.json() zamiast response.text(), aby otrzymać dane jako obiekt JSON
-			setRecipesData(result); // Ustawiamy dane przepisów w stanie komponentu
+			setRecipesData(result); 
+			// Ustawiamy dane przepisów w stanie komponentu
 		} catch (error) {
 			console.error(error);
 		}

@@ -28,40 +28,45 @@ function RecipesList({ recipes }) {
 	return (
 		<Container maxWidth="md">
 			<Grid container spacing={3}>
-				{recipes.map((recipe) => (
-					
-					<Grid item key={recipe.id} xs={12}>
+				{recipes.map(
+					(recipe) =>
 						
-						<Link to={`/recipe/${recipe.title}`} style={{ textDecoration: "none" }}>
-							<Card
-								onMouseEnter={() => handleMouseEnter(recipe.id)}
-								onMouseLeave={handleMouseLeave}
-							>
-								<CardContent>
-									<Typography variant="h4" component="h2" gutterBottom>
-										{recipe.title}
-									</Typography>
-									<Typography variant="subtitle1" color="textSecondary">
-										Opis
-									</Typography>
-								</CardContent>
-								{/* Pokaż ButtonGroup tylko na najechanym przepisie */}
-								{hoveredRecipeId === recipe.id && (
-									<Grid container justifyContent="flex-end">
-										<Grid item sx={{ marginTop: "-4%" }}>
-											<IconButton>
-												<FavoriteIcon />
-											</IconButton>
-											<IconButton>
-												<IosShareIcon />
-											</IconButton>
-										</Grid>
-									</Grid>
-								)}
-							</Card>
-						</Link>
-					</Grid>
-				))}
+							
+							<Grid item key={recipe.id} xs={12}>
+								 <Link
+      to={`/recipe/${recipe.title}/${recipe.id}/${recipe.difficulty}`} // Dodaj recipe.id do ścieżki
+      style={{ textDecoration: "none" }}
+    >
+									<Card
+										onMouseEnter={() => handleMouseEnter(recipe.id)}
+										onMouseLeave={handleMouseLeave}
+									>
+										<CardContent>
+											<Typography variant="h4" component="h2" gutterBottom>
+												{recipe.title}
+											</Typography>
+											<Typography variant="subtitle1" color="textSecondary">
+												Opis
+											</Typography>
+										</CardContent>
+										{/* Pokaż ButtonGroup tylko na najechanym przepisie */}
+										{hoveredRecipeId === recipe.id && (
+											<Grid container justifyContent="flex-end">
+												<Grid item sx={{ marginTop: "-4%" }}>
+													<IconButton>
+														<FavoriteIcon />
+													</IconButton>
+													<IconButton>
+														<IosShareIcon />
+													</IconButton>
+												</Grid>
+											</Grid>
+										)}
+									</Card>
+								</Link>
+							</Grid>
+						
+				)}
 			</Grid>
 		</Container>
 	);

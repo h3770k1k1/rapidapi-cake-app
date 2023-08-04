@@ -1,6 +1,5 @@
 import React from "react";
 import { MenuItem } from "@mui/material";
-
 const SelectOption = ({ children, ...props }) => {
 	const { value } = props;
 	const selectedFilters = Array.isArray(props.value)
@@ -8,7 +7,11 @@ const SelectOption = ({ children, ...props }) => {
 		: [props.value];
 
 	return (
-		<MenuItem {...props} selected={selectedFilters.includes(value)}>
+		<MenuItem
+			{...props}
+			selected={selectedFilters.includes(value)}
+			className="menu-item"
+		>
 			{children}
 		</MenuItem>
 	);

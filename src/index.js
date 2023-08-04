@@ -9,27 +9,29 @@ import FavouritesPage from "./components/subpages/FavouritesPage";
 import Recipe from "./components/subpages/Recipe";
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-  },
-  {
-    path: "/favourites",
-    element: <FavouritesPage />,
-  },
-  {
-    path: "/recipe/:title", // Dodajemy parametr "title" do ścieżki
-    element: <Recipe />,
-  },
+	{
+		path: "/",
+		element: <App />,
+	},
+	{
+		path: "/favourites",
+		element: <FavouritesPage />,
+	},
+	{
+		path: "/recipe/:title/:recipeId/:difficulty", // Dodajemy parametr "title" do ścieżki
+		element: <Recipe />,
+	},
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <RouterProvider router={router}>
-    <BrowserRouter> {/* Dodajemy BrowserRouter na najwyższym poziomie */}
-      {router}
-    </BrowserRouter>
-  </RouterProvider>
+	<RouterProvider router={router}>
+		<BrowserRouter>
+			{" "}
+			{/* Dodajemy BrowserRouter na najwyższym poziomie */}
+			{router}
+		</BrowserRouter>
+	</RouterProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

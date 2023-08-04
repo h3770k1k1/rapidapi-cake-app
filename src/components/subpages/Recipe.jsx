@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import CakeIcon from "@mui/icons-material/Cake";
 import List from "@mui/material/List";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Recipe.css";
 import CookingStep from "../CookingStep";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -16,12 +16,28 @@ import { theme } from "./theme";
 import { useParams } from "react-router-dom";
 
 const Recipe = () => {
-	const { title } = useParams();
+	const { title, recipeId, difficulty } = useParams();
 	const [expanded, setExpanded] = useState(false);
+	const [recipesData, setRecipesData] = useState(null);
+	console.log("Title:", title);
+	console.log("Recipe ID:", recipeId);
+	console.log("Difficulty:", difficulty);
 
 	const handleExpandClick = () => {
 		setExpanded(!expanded);
 	};
+
+	useEffect(() => {
+		// Gdy dane przepisów się zmienią, sprawdź czy tytuł pasuje do tytułu z parametru
+		if (recipesData && Array.isArray(recipesData)) {
+			const recipe = recipesData.find(
+				(recipe) =>
+					recipe.title === title &&
+					recipe.id === recipeId &&
+					recipe.difficulty === difficulty
+			); // Dodajemy sprawdzenie recipe.id
+		}
+	}, [recipesData, title, recipeId, difficulty]);
 	return (
 		<div className="recipe">
 			<ThemeProvider theme={theme}>
