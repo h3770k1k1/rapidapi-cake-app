@@ -77,7 +77,8 @@ const Recipe = () => {
 							variant="h6"
 							sx={{ display: "flex", justifyContent: "space-between" }}
 						>
-							Difficulty: <span style={{ marginLeft: "auto" }}>Hard</span>
+							Difficulty:{" "}
+							<span style={{ marginLeft: "auto" }}>{difficulty}</span>
 						</Typography>
 					</div>
 					<div className="recipe-element">
