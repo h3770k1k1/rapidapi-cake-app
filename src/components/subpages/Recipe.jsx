@@ -23,6 +23,15 @@ const Recipe = () => {
 	console.log("Recipe ID:", recipeId);
 	console.log("Difficulty:", difficulty);
 
+	let difficultyColor = "inherit"; // Kolor dziedziczony (czarny) domyślnie
+
+	if (difficulty === "Medium") {
+		difficultyColor = "orange"; // Jeśli trudność jest "Medium", ustaw kolor na pomarańczowy
+	} else if (difficulty === "Easy") {
+		difficultyColor = "green"; // Jeśli trudność jest "Easy", ustaw kolor na zielony
+	} else {
+		difficultyColor = "red"; // Wszystkie inne wartości trudności będą miały kolor różowy
+	}
 	const handleExpandClick = () => {
 		setExpanded(!expanded);
 	};
@@ -75,10 +84,15 @@ const Recipe = () => {
 					<div className="recipe-element">
 						<Typography
 							variant="h6"
-							sx={{ display: "flex", justifyContent: "space-between" }}
+							sx={{
+								display: "flex",
+								justifyContent: "space-between",
+							}}
 						>
 							Difficulty:{" "}
-							<span style={{ marginLeft: "auto" }}>{difficulty}</span>
+							<span style={{ marginLeft: "auto", color: difficultyColor }}>
+								{difficulty}
+							</span>
 						</Typography>
 					</div>
 					<div className="recipe-element">

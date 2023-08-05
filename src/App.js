@@ -9,7 +9,6 @@ import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./theme";
 import LoadRecipesButton from "./components/LoadRecipesButton";
 
-
 function App() {
 	const [selectedFilters, setSelectedFilters] = useState([]);
 	const [recipesData, setRecipesData] = useState(null); // Nowy stan do przechowywania danych przepisów
@@ -37,7 +36,7 @@ function App() {
 		try {
 			const response = await fetch(url, options);
 			const result = await response.json(); // Używamy response.json() zamiast response.text(), aby otrzymać dane jako obiekt JSON
-			setRecipesData(result); 
+			setRecipesData(result);
 			// Ustawiamy dane przepisów w stanie komponentu
 		} catch (error) {
 			console.error(error);
