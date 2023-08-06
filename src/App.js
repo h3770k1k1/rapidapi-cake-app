@@ -36,8 +36,7 @@ function App() {
 		try {
 			const response = await fetch(url, options);
 			const result = await response.json(); // Używamy response.json() zamiast response.text(), aby otrzymać dane jako obiekt JSON
-			setRecipesData(result);
-			// Ustawiamy dane przepisów w stanie komponentu
+			setRecipesData(result); // Ustawiamy dane przepisów w stanie komponentu
 		} catch (error) {
 			console.error(error);
 		}

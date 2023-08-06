@@ -70,7 +70,7 @@ const Recipe = () => {
 				<Box
 					sx={{
 						backgroundColor: "secondary.main",
-						width: "100vw",
+						width: "100%",
 						height: "40vh",
 					}}
 				></Box>
