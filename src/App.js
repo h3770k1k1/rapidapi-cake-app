@@ -6,9 +6,6 @@ import SearchBar from "./components/SearchBar";
 import FiltersDropDown from "./components/FiltersDropDown";
 import React, { useState } from "react";
 import { Grid } from "@mui/material";
-import { ThemeProvider } from "@mui/material/styles";
-import { theme } from "./theme";
-import LoadRecipesButton from "./components/LoadRecipesButton";
 
 function App() {
 	const [selectedFilters, setSelectedFilters] = useState([]);
@@ -31,7 +28,7 @@ function App() {
 		const options = {
 			method: "GET",
 			headers: {
-				"X-RapidAPI-Key": "",
+				"X-RapidAPI-Key": "e0be72b194mshb8599fec2da2e58p10e79fjsn1fa5a01f70bd",
 				"X-RapidAPI-Host": "the-birthday-cake-db.p.rapidapi.com",
 			},
 		};

@@ -11,8 +11,6 @@ import CookingStep from "../CookingStep";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import Fab from "@mui/material/Fab";
-import { ThemeProvider } from "@mui/material/styles";
-import { theme } from "./theme";
 import { useParams } from "react-router-dom";
 
 const Recipe = () => {
@@ -49,7 +47,6 @@ const Recipe = () => {
 	}, [recipesData, title, recipeId, difficulty]);
 	return (
 		<div className="recipe">
-			<ThemeProvider theme={theme}>
 				<Container
 					sx={{
 						display: "flex",
@@ -143,7 +140,6 @@ const Recipe = () => {
 						<CookingStep />
 					</div>
 				</Container>
-			</ThemeProvider>
 		</div>
 	);
 };

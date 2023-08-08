@@ -7,6 +7,8 @@ import * as ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import FavouritesPage from "./components/subpages/FavouritesPage";
 import Recipe from "./components/subpages/Recipe";
+import { ThemeProvider } from "@mui/material/styles";
+import { theme } from "./theme";
 
 const router = createBrowserRouter([
 	{
@@ -25,6 +27,7 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
+	<ThemeProvider theme={theme}>
 	<RouterProvider router={router}>
 		<BrowserRouter>
 			{" "}
@@ -32,6 +35,7 @@ root.render(
 			{router}
 		</BrowserRouter>
 	</RouterProvider>
+	</ThemeProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
