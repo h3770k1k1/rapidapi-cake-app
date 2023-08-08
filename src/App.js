@@ -1,5 +1,6 @@
 import "./App.css";
 import RecipesList from "./components/RecipesList";
+import Button from "@mui/material/Button";
 import Navbar from "./components/Navbar";
 import SearchBar from "./components/SearchBar";
 import FiltersDropDown from "./components/FiltersDropDown";
@@ -11,16 +12,18 @@ import LoadRecipesButton from "./components/LoadRecipesButton";
 
 function App() {
 	const [selectedFilters, setSelectedFilters] = useState([]);
-	const [recipesData, setRecipesData] = useState(null); // Nowy stan do przechowywania danych przepisów
+	const [recipesData, setRecipesData] = useState(null);
+	const [isDropdownDisabled, setIsDropdownDisabled] = useState(true);
 
 	const handleFilterChange = (selectedValues) => {
 		setSelectedFilters(selectedValues);
 	};
 
 	const filters = [
+		{ label: "All", value: "all" }, // Dodajemy opcję "All" jako filtr
 		{ label: "Easy", value: "Easy" },
 		{ label: "Medium", value: "Medium" },
-		{ label: "A challange", value: "A challange" },
+		{ label: "A challenge", value: "A challenge" },
 	];
 
 	const handleLoadRecipesClick = async () => {
@@ -35,11 +38,22 @@ function App() {
 
 		try {
 			const response = await fetch(url, options);
-			const result = await response.json(); // Używamy response.json() zamiast response.text(), aby otrzymać dane jako obiekt JSON
-			setRecipesData(result); // Ustawiamy dane przepisów w stanie komponentu
+			const result = await response.json();
+			setRecipesData(result);
+			setIsDropdownDisabled(false);
 		} catch (error) {
 			console.error(error);
 		}
+	};
+
+	// Nowa funkcja do automatycznego ładowania przepisów przy pierwszym renderowaniu
+	React.useEffect(() => {
+		handleLoadRecipesClick();
+	}, []);
+
+	// Nowa funkcja obsługująca kliknięcie przycisku "Show All Recipes"
+	const handleShowAllRecipesClick = () => {
+		setSelectedFilters("all");
 	};
 
 	return (
@@ -60,13 +74,23 @@ function App() {
 							filters={filters}
 							selectedFilters={selectedFilters}
 							onFilterChange={handleFilterChange}
+							disabled={isDropdownDisabled}
 						/>
 					</Grid>
 				</Grid>
-				<LoadRecipesButton onClick={handleLoadRecipesClick} />
-				{/* Przekazujemy dane przepisów jako props do komponentu RecipesList */}
-				{recipesData && <RecipesList recipes={recipesData} />}{" "}
-				{/* Renderujemy RecipesList tylko, jeśli mamy dane przepisów */}
+				{/* Nowy przycisk "Show All Recipes" */}
+				<Button
+					variant="contained"
+					color="primary"
+					onClick={handleShowAllRecipesClick}
+				>
+					Show All Recipes
+				</Button>
+				{/* Przekazujemy cały zbiór receptur do komponentu RecipesList */}
+				{/* Nie filtrujemy receptur, aż do wyboru filtrów w komponencie FiltersDropDown */}
+				{recipesData && (
+					<RecipesList recipes={recipesData} selectedFilter={selectedFilters} />
+				)}
 			</ThemeProvider>
 		</div>
 	);

@@ -22,7 +22,8 @@ function RecipesList({ recipes, selectedFilter }) {
 		setHoveredRecipeId(null);
 	};
 
-	const filteredRecipes = selectedFilter
+	// Filtrujemy receptury na podstawie wybranego filtra
+	const filteredRecipes = selectedFilter && selectedFilter !== "all"
 		? recipes.filter((recipe) => recipe.difficulty === selectedFilter)
 		: recipes;
 

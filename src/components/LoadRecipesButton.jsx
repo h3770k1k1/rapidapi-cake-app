@@ -1,16 +1,12 @@
-import React from 'react';
-import Button from '@mui/material/Button';
+import React from "react";
+import Button from "@mui/material/Button";
 
 const LoadRecipesButton = ({ onClick }) => {
-  const handleButtonClick = async () => {
-    await onClick(); 
-  };
-
-  return (
-    <Button variant="contained" color="primary" onClick={handleButtonClick}>
-      Load Recipes
-    </Button>
-  );
+	return (
+		<Button variant="contained" color="primary" onClick={onClick}>
+			Load Recipes
+		</Button>
+	);
 };
 
 export default LoadRecipesButton;
