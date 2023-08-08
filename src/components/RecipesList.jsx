@@ -22,7 +22,16 @@ function RecipesList({ recipes, selectedFilter, searchQuery }) {
 		setHoveredRecipeId(null);
 	};
 
-	// Filtrujemy receptury na podstawie wybranego filtra
+	// Funkcja pomocnicza do zaznaczania pasujących liter w nazwie przepisu
+	const highlightMatchingLetters = (text, searchQuery) => {
+		const searchPattern = new RegExp(searchQuery, "gi");
+		return text.replace(
+			searchPattern,
+			(match) => `<span class="highlight">${match}</span>`
+		);
+	};
+
+	// Filtrujemy receptury na podstawie wybranego filtra i wprowadzonego tekstu
 	const filteredRecipes = recipes.filter((recipe) => {
 		const filterMatch =
 			selectedFilter === "all" || recipe.difficulty === selectedFilter;
@@ -47,7 +56,15 @@ function RecipesList({ recipes, selectedFilter, searchQuery }) {
 							>
 								<CardContent>
 									<Typography variant="h4" component="h2" gutterBottom>
-										{recipe.title}
+										{/* Zaznaczamy pasujące litery w nazwie przepisu */}
+										<span
+											dangerouslySetInnerHTML={{
+												__html: highlightMatchingLetters(
+													recipe.title,
+													searchQuery
+												),
+											}}
+										/>
 									</Typography>
 									<Typography variant="subtitle1" color="textSecondary">
 										Opis

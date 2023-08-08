@@ -3,6 +3,7 @@ import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import TextField from "@mui/material/TextField";
+import "./SearchBar.css"; // Importujemy plik stylów CSS dla komponentu
 
 const SearchBar = ({ onSearchChange }) => {
 	const [searchValue, setSearchValue] = useState("");
