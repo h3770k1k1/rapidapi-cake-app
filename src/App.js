@@ -11,13 +11,14 @@ function App() {
 	const [selectedFilters, setSelectedFilters] = useState([]);
 	const [recipesData, setRecipesData] = useState(null);
 	const [isDropdownDisabled, setIsDropdownDisabled] = useState(true);
+	const [searchQuery, setSearchQuery] = useState(""); // Dodajemy stan dla wartości wyszukiwania
 
 	const handleFilterChange = (selectedValues) => {
 		setSelectedFilters(selectedValues);
 	};
 
 	const filters = [
-		{ label: "All", value: "all" }, // Dodajemy opcję "All" jako filtr
+		{ label: "All", value: "all" }, 
 		{ label: "Easy", value: "Easy" },
 		{ label: "Medium", value: "Medium" },
 		{ label: "A challenge", value: "A challenge" },
@@ -52,10 +53,12 @@ function App() {
 	const handleShowAllRecipesClick = () => {
 		setSelectedFilters("all");
 	};
+	const handleSearchChange = (query) => {
+		setSearchQuery(query);
+	};
 
 	return (
 		<div className="App">
-			<ThemeProvider theme={theme}>
 				<Navbar />
 				<Grid
 					container
@@ -64,7 +67,7 @@ function App() {
 					sx={{ marginTop: "1%", marginBottom: "1%" }}
 				>
 					<Grid item>
-						<SearchBar />
+					<SearchBar onSearchChange={handleSearchChange} />
 					</Grid>
 					<Grid item>
 						<FiltersDropDown
@@ -86,9 +89,8 @@ function App() {
 				{/* Przekazujemy cały zbiór receptur do komponentu RecipesList */}
 				{/* Nie filtrujemy receptur, aż do wyboru filtrów w komponencie FiltersDropDown */}
 				{recipesData && (
-					<RecipesList recipes={recipesData} selectedFilter={selectedFilters} />
+					<RecipesList recipes={recipesData} selectedFilter={selectedFilters} searchQuery={searchQuery}/>
 				)}
-			</ThemeProvider>
 		</div>
 	);
 }

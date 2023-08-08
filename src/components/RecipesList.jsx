@@ -11,7 +11,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import { Link } from "react-router-dom";
 
-function RecipesList({ recipes, selectedFilter }) {
+function RecipesList({ recipes, selectedFilter, searchQuery }) {
 	const [hoveredRecipeId, setHoveredRecipeId] = React.useState(null);
 
 	const handleMouseEnter = (recipeId) => {
@@ -23,9 +23,14 @@ function RecipesList({ recipes, selectedFilter }) {
 	};
 
 	// Filtrujemy receptury na podstawie wybranego filtra
-	const filteredRecipes = selectedFilter && selectedFilter !== "all"
-		? recipes.filter((recipe) => recipe.difficulty === selectedFilter)
-		: recipes;
+	const filteredRecipes = recipes.filter((recipe) => {
+		const filterMatch =
+			selectedFilter === "all" || recipe.difficulty === selectedFilter;
+		const searchMatch = recipe.title
+			.toLowerCase()
+			.includes(searchQuery.toLowerCase());
+		return filterMatch && searchMatch;
+	});
 
 	return (
 		<Container maxWidth="md">
