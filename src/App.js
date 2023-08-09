@@ -18,7 +18,7 @@ function App() {
 	};
 
 	const filters = [
-		{ label: "All", value: "all" }, 
+		{ label: "All", value: "all" },
 		{ label: "Easy", value: "Easy" },
 		{ label: "Medium", value: "Medium" },
 		{ label: "A challenge", value: "A challenge" },
@@ -59,38 +59,42 @@ function App() {
 
 	return (
 		<div className="App">
-				<Navbar />
-				<Grid
-					container
-					direction="column"
-					spacing={"1.5%"}
-					sx={{ marginTop: "1%", marginBottom: "1%" }}
-				>
-					<Grid item>
+			<Navbar />
+			<Grid
+				container
+				direction="column"
+				spacing={"1.5%"}
+				sx={{ marginTop: "1%", marginBottom: "1%" }}
+			>
+				<Grid item>
 					<SearchBar onSearchChange={handleSearchChange} />
-					</Grid>
-					<Grid item>
-						<FiltersDropDown
-							filters={filters}
-							selectedFilters={selectedFilters}
-							onFilterChange={handleFilterChange}
-							disabled={isDropdownDisabled}
-						/>
-					</Grid>
 				</Grid>
-				{/* Nowy przycisk "Show All Recipes" */}
-				<Button
-					variant="contained"
-					color="primary"
-					onClick={handleShowAllRecipesClick}
-				>
-					Show All Recipes
-				</Button>
-				{/* Przekazujemy cały zbiór receptur do komponentu RecipesList */}
-				{/* Nie filtrujemy receptur, aż do wyboru filtrów w komponencie FiltersDropDown */}
-				{recipesData && (
-					<RecipesList recipes={recipesData} selectedFilter={selectedFilters} searchQuery={searchQuery}/>
-				)}
+				<Grid item>
+					<FiltersDropDown
+						filters={filters}
+						selectedFilters={selectedFilters}
+						onFilterChange={handleFilterChange}
+						disabled={isDropdownDisabled}
+					/>
+				</Grid>
+			</Grid>
+			{/* Nowy przycisk "Show All Recipes" */}
+			<Button
+				variant="contained"
+				color="primary"
+				onClick={handleShowAllRecipesClick}
+			>
+				Show All Recipes
+			</Button>
+			{/* Przekazujemy cały zbiór receptur do komponentu RecipesList */}
+			{/* Nie filtrujemy receptur, aż do wyboru filtrów w komponencie FiltersDropDown */}
+			{recipesData && (
+				<RecipesList
+					recipes={recipesData}
+					selectedFilter={selectedFilters}
+					searchQuery={searchQuery}
+				/>
+			)}
 		</div>
 	);
 }

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Container, Typography, Collapse } from "@mui/material";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 
 const CookingStep = () => {
 	const [expanded, setExpanded] = useState(false);
@@ -20,9 +21,21 @@ const CookingStep = () => {
 			<Typography
 				variant="h6"
 				onClick={handleExpandClick}
-				sx={{ cursor: "pointer" }}
+				sx={{
+					cursor: "pointer",
+					display: "flex",
+					justifyContent: "space-between",
+					alignItems: "center",
+				}}
 			>
 				Step 1
+				<ExpandLessIcon
+					fontSize="large"
+					sx={{
+						transform: expanded ? "rotate(180deg)" : "none", // Obrót 180 stopni dla ikony w zależności od stanu expanded
+						transition: "transform 0.3s ease-in-out", // Dodajemy płynność animacji
+					}}
+				/>
 			</Typography>
 			<Collapse in={expanded} timeout="auto" unmountOnExit>
 				<Typography variant="body1">
