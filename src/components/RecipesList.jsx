@@ -31,6 +31,9 @@ function RecipesList({ recipes, selectedFilter, searchQuery }) {
 		);
 	};
 
+	// Tablica powtarzających się kolorów tła
+	const cardBackgroundColors = ["#ffc2cd", "#cdffc2", "#c2d8ff", "#ffdbc2"];
+
 	// Filtrujemy receptury na podstawie wybranego filtra i wprowadzonego tekstu
 	const filteredRecipes = recipes.filter((recipe) => {
 		const filterMatch =
@@ -42,9 +45,9 @@ function RecipesList({ recipes, selectedFilter, searchQuery }) {
 	});
 
 	return (
-		<Container maxWidth="md">
+		<Container maxWidth="md" sx={{ marginTop: "1%" }}>
 			<Grid container spacing={3}>
-				{filteredRecipes.map((recipe) => (
+				{filteredRecipes.map((recipe, index) => (
 					<Grid item key={recipe.id} xs={12}>
 						<Link
 							to={`/recipe/${recipe.title}/${recipe.id}/${recipe.difficulty}`}
@@ -56,6 +59,8 @@ function RecipesList({ recipes, selectedFilter, searchQuery }) {
 									display: "flex",
 									flexDirection: "column",
 									position: "relative", // Dodajemy pozycję względem rodzica
+									backgroundColor:
+										cardBackgroundColors[index % cardBackgroundColors.length], // Wybieramy kolor tła z tablicy
 								}}
 								onMouseEnter={() => handleMouseEnter(recipe.id)}
 								onMouseLeave={handleMouseLeave}
@@ -75,7 +80,6 @@ function RecipesList({ recipes, selectedFilter, searchQuery }) {
 									<Typography variant="subtitle1" color="textSecondary">
 										Opis
 									</Typography>
-									<Typography>Trudność: {recipe.difficulty}</Typography>
 								</CardContent>
 								{/* Pokaż ButtonGroup tylko na najechanym przepisie */}
 								{hoveredRecipeId === recipe.id && (

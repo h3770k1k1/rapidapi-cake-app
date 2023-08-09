@@ -29,7 +29,7 @@ function App() {
 		const options = {
 			method: "GET",
 			headers: {
-				"X-RapidAPI-Key": "e0be72b194mshb8599fec2da2e58p10e79fjsn1fa5a01f70bd",
+				"X-RapidAPI-Key": "",
 				"X-RapidAPI-Host": "the-birthday-cake-db.p.rapidapi.com",
 			},
 		};
