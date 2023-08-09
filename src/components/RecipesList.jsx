@@ -51,6 +51,12 @@ function RecipesList({ recipes, selectedFilter, searchQuery }) {
 							style={{ textDecoration: "none" }}
 						>
 							<Card
+								sx={{
+									height: "100%", // Ustawiamy stałą wysokość karty na 100%
+									display: "flex",
+									flexDirection: "column",
+									position: "relative", // Dodajemy pozycję względem rodzica
+								}}
 								onMouseEnter={() => handleMouseEnter(recipe.id)}
 								onMouseLeave={handleMouseLeave}
 							>
@@ -73,17 +79,23 @@ function RecipesList({ recipes, selectedFilter, searchQuery }) {
 								</CardContent>
 								{/* Pokaż ButtonGroup tylko na najechanym przepisie */}
 								{hoveredRecipeId === recipe.id && (
-									<Grid container justifyContent="flex-end">
-										<Grid item sx={{ marginTop: "-4%" }}>
-											<IconButton>
-												<FavoriteIcon />
-											</IconButton>
-											<IconButton>
-												<IosShareIcon />
-											</IconButton>
-										</Grid>
-									</Grid>
+									<div
+										style={{
+											position: "absolute",
+											bottom: 0,
+											right: 0,
+										}}
+									>
+										<IconButton>
+											<FavoriteIcon />
+										</IconButton>
+										<IconButton>
+											<IosShareIcon />
+										</IconButton>
+									</div>
 								)}
+								{/* Pusty element, aby zrównać wysokość */}
+								<span style={{ flex: 1 }} />
 							</Card>
 						</Link>
 					</Grid>
