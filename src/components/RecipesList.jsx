@@ -43,6 +43,20 @@ function RecipesList({ recipes, selectedFilter, searchQuery }) {
 			.includes(searchQuery.toLowerCase());
 		return filterMatch && searchMatch;
 	});
+	const getColorForDifficulty = (difficulty) => {
+		const normalizedDifficulty = difficulty.trim().toLowerCase();
+
+		switch (normalizedDifficulty) {
+			case "a challenge":
+				return "red";
+			case "easy":
+				return "green";
+			case "medium":
+				return "orange";
+			default:
+				return "black"; // Default color if difficulty doesn't match any case
+		}
+	};
 
 	return (
 		<Container maxWidth="md" sx={{ marginTop: "1%" }}>
@@ -87,7 +101,7 @@ function RecipesList({ recipes, selectedFilter, searchQuery }) {
 										style={{
 											position: "absolute",
 											bottom: 0,
-											right: 0,
+											left: 0,
 										}}
 									>
 										<IconButton>
@@ -98,6 +112,24 @@ function RecipesList({ recipes, selectedFilter, searchQuery }) {
 										</IconButton>
 									</div>
 								)}
+								<div
+									style={{
+										position: "absolute",
+										bottom: 0,
+										right: 0,
+									}}
+								>
+									<Typography
+										style={{
+											fontWeight: "bold",
+											marginBottom: "0.5rem",
+											marginRight: "1rem",
+											color: getColorForDifficulty(recipe.difficulty),
+										}}
+									>
+										{recipe.difficulty}
+									</Typography>
+								</div>
 								{/* Pusty element, aby zrównać wysokość */}
 								<span style={{ flex: 1 }} />
 							</Card>
