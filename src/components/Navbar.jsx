@@ -21,6 +21,7 @@ const Navbar = () => {
 		<>
 			<AppBar
 				position="sticky"
+				elevation={0}
 				sx={{
 					bgcolor: "primary.main",
 					color: "black",
@@ -29,6 +30,7 @@ const Navbar = () => {
 					flexDirection: "row",
 					justifyContent: "space-between",
 					padding: "0 16px",
+					borderBottom: "3px solid black",
 				}}
 			>
 				<Box sx={{ display: "flex", alignItems: "center" }}>

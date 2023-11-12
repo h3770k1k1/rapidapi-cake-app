@@ -81,7 +81,7 @@ function App() {
 			{/* Nowy przycisk "Show All Recipes" */}
 			<Button
 				variant="contained"
-				color="primary"
+				color="secondary"
 				onClick={handleShowAllRecipesClick}
 			>
 				Show All Recipes

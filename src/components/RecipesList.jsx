@@ -1,4 +1,5 @@
 import React from "react";
+import Box from "@mui/material/Box";
 import {
 	Container,
 	Grid,
@@ -10,6 +11,7 @@ import {
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import { Link } from "react-router-dom";
+import Masonry from "@mui/lab/Masonry";
 
 function RecipesList({ recipes, selectedFilter, searchQuery }) {
 	const [hoveredRecipeId, setHoveredRecipeId] = React.useState(null);
@@ -32,7 +34,7 @@ function RecipesList({ recipes, selectedFilter, searchQuery }) {
 	};
 
 	// Tablica powtarzających się kolorów tła
-	const cardBackgroundColors = ["#ffc2cd", "#cdffc2", "#c2d8ff", "#ffdbc2"];
+	const cardBackgroundColors = ["#94F4FF", "#FBFF94", "#AD94FF", "#94FFBF"];
 
 	// Filtrujemy receptury na podstawie wybranego filtra i wprowadzonego tekstu
 	const filteredRecipes = recipes.filter((recipe) => {
@@ -59,84 +61,105 @@ function RecipesList({ recipes, selectedFilter, searchQuery }) {
 	};
 
 	return (
-		<Container maxWidth="md" sx={{ marginTop: "1%" }}>
-			<Grid container spacing={3}>
+		<Container maxWidth="lg" sx={{ marginTop: "1%" }}>
+			<Masonry spacing={3} columns={4}>
 				{filteredRecipes.map((recipe, index) => (
-					<Grid item key={recipe.id} xs={12}>
-						<Link
-							to={`/recipe/${recipe.title}/${recipe.id}/${recipe.difficulty}`}
-							style={{ textDecoration: "none" }}
+					<Link
+						to={`/recipe/${recipe.title}/${recipe.id}/${recipe.difficulty}`}
+						style={{ textDecoration: "none" }}
+					>
+						<Card
+							sx={{
+								width: "100%",
+								display: "flex",
+								flexDirection: "column",
+								position: "relative",
+								backgroundColor:
+									cardBackgroundColors[index % cardBackgroundColors.length],
+								border: "3px solid black",
+								WebkitBoxShadow: "-2px 6px 0px 0px rgba(0, 0, 0, 1)",
+								boxShadow: " -2px 6px 0px 0px rgba(0, 0, 0, 1)",
+							}}
+							onMouseEnter={() => handleMouseEnter(recipe.id)}
+							onMouseLeave={handleMouseLeave}
 						>
-							<Card
-								sx={{
-									height: "100%", // Ustawiamy stałą wysokość karty na 100%
-									display: "flex",
-									flexDirection: "column",
-									position: "relative", // Dodajemy pozycję względem rodzica
-									backgroundColor:
-										cardBackgroundColors[index % cardBackgroundColors.length], // Wybieramy kolor tła z tablicy
-								}}
-								onMouseEnter={() => handleMouseEnter(recipe.id)}
-								onMouseLeave={handleMouseLeave}
-							>
-								<CardContent>
-									<Typography variant="h4" component="h2" gutterBottom>
-										{/* Zaznaczamy pasujące litery w nazwie przepisu */}
-										<span
-											dangerouslySetInnerHTML={{
-												__html: highlightMatchingLetters(
-													recipe.title,
-													searchQuery
-												),
-											}}
-										/>
-									</Typography>
-									<Typography variant="subtitle1" color="textSecondary">
-										Opis
-									</Typography>
-								</CardContent>
-								{/* Pokaż ButtonGroup tylko na najechanym przepisie */}
-								{hoveredRecipeId === recipe.id && (
-									<div
+							<CardContent>
+								<Box
+									sx={{
+										backgroundColor: "primary.light",
+										width: "100%",
+										height: "20rem",
+									}}
+								>
+									<img
+										src={`https://apipics.s3.amazonaws.com/cakes_api/${recipe.id}.jpg`}
+										alt={recipe.title}
 										style={{
-											position: "absolute",
-											bottom: 0,
-											left: 0,
+											width: "100%",
+											height: "100%",
+											objectFit: "cover",
+											objectPosition: "top 0",
 										}}
-									>
-										<IconButton>
-											<FavoriteIcon />
-										</IconButton>
-										<IconButton>
-											<IosShareIcon />
-										</IconButton>
-									</div>
-								)}
+									/>
+								</Box>
+								<Typography
+									variant="h6"
+									component="h2"
+									fontWeight={700}
+									gutterBottom
+								>
+									<span
+										dangerouslySetInnerHTML={{
+											__html: highlightMatchingLetters(
+												recipe.title,
+												searchQuery
+											),
+										}}
+									/>
+								</Typography>
+								<Typography variant="subtitle1" color="textSecondary">
+									Opis
+								</Typography>
+							</CardContent>
+							{hoveredRecipeId === recipe.id && (
 								<div
 									style={{
 										position: "absolute",
 										bottom: 0,
-										right: 0,
+										left: 0,
 									}}
 								>
-									<Typography
-										style={{
-											fontWeight: "bold",
-											marginBottom: "0.5rem",
-											marginRight: "1rem",
-											color: getColorForDifficulty(recipe.difficulty),
-										}}
-									>
-										{recipe.difficulty}
-									</Typography>
+									<IconButton>
+										<FavoriteIcon />
+									</IconButton>
+									<IconButton>
+										<IosShareIcon />
+									</IconButton>
 								</div>
-								{/* Pusty element, aby zrównać wysokość */}
-								<span style={{ flex: 1 }} />
-							</Card>
-						</Link>
-					</Grid>
+							)}
+							<div
+								style={{
+									position: "absolute",
+									bottom: 0,
+									right: 0,
+								}}
+							>
+								<Typography
+									style={{
+										fontWeight: "bold",
+										marginBottom: "0.5rem",
+										marginRight: "1rem",
+										color: getColorForDifficulty(recipe.difficulty),
+									}}
+								>
+									{recipe.difficulty}
+								</Typography>
+							</div>
+							<span style={{ flex: 1 }} />
+						</Card>
+					</Link>
 				))}
-			</Grid>
+			</Masonry>
 		</Container>
 	);
 }
