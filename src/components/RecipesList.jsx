@@ -12,6 +12,9 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import { Link } from "react-router-dom";
 import Masonry from "@mui/lab/Masonry";
+import Rating from "@mui/material/Rating";
+import CakeIcon from "@mui/icons-material/Cake";
+import CakeOutlinedIcon from "@mui/icons-material/CakeOutlined";
 
 function RecipesList({ recipes, selectedFilter, searchQuery }) {
 	const [hoveredRecipeId, setHoveredRecipeId] = React.useState(null);
@@ -45,20 +48,6 @@ function RecipesList({ recipes, selectedFilter, searchQuery }) {
 			.includes(searchQuery.toLowerCase());
 		return filterMatch && searchMatch;
 	});
-	const getColorForDifficulty = (difficulty) => {
-		const normalizedDifficulty = difficulty.trim().toLowerCase();
-
-		switch (normalizedDifficulty) {
-			case "a challenge":
-				return "red";
-			case "easy":
-				return "green";
-			case "medium":
-				return "orange";
-			default:
-				return "black"; // Default color if difficulty doesn't match any case
-		}
-	};
 
 	return (
 		<Container maxWidth="lg" sx={{ marginTop: "1%" }}>
@@ -79,6 +68,7 @@ function RecipesList({ recipes, selectedFilter, searchQuery }) {
 								border: "3px solid black",
 								WebkitBoxShadow: "-2px 6px 0px 0px rgba(0, 0, 0, 1)",
 								boxShadow: " -2px 6px 0px 0px rgba(0, 0, 0, 1)",
+								borderRadius: "10px",
 							}}
 							onMouseEnter={() => handleMouseEnter(recipe.id)}
 							onMouseLeave={handleMouseLeave}
@@ -140,20 +130,21 @@ function RecipesList({ recipes, selectedFilter, searchQuery }) {
 							<div
 								style={{
 									position: "absolute",
-									bottom: 0,
+									bottom: 5,
 									right: 0,
+									display: "flex",
+									alignItems: "center",
+									marginRight: "1rem",
 								}}
 							>
-								<Typography
-									style={{
-										fontWeight: "bold",
-										marginBottom: "0.5rem",
-										marginRight: "1rem",
-										color: getColorForDifficulty(recipe.difficulty),
-									}}
-								>
-									{recipe.difficulty}
-								</Typography>
+								{/* Use Rating component to display difficulty */}
+								<Rating
+									value={difficultyToRatingValue(recipe.difficulty)}
+									max={3}
+									readOnly
+									icon={<CakeIcon sx={{ color: "black" }} />}
+									emptyIcon={<CakeOutlinedIcon sx={{ color: "black" }} />}
+								/>
 							</div>
 							<span style={{ flex: 1 }} />
 						</Card>
@@ -163,5 +154,18 @@ function RecipesList({ recipes, selectedFilter, searchQuery }) {
 		</Container>
 	);
 }
+const difficultyToRatingValue = (difficulty) => {
+	const normalizedDifficulty = difficulty.trim().toLowerCase();
 
+	switch (normalizedDifficulty) {
+		case "a challenge":
+			return 3;
+		case "medium":
+			return 2;
+		case "easy":
+			return 1;
+		default:
+			return 0; // Default to 0 if difficulty doesn't match any case
+	}
+};
 export default RecipesList;
