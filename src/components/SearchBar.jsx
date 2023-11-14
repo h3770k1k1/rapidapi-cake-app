@@ -18,14 +18,14 @@ const SearchBar = ({ onSearchChange }) => {
 		<form>
 			<TextField
 				label="Search recipe by name"
-				sx={{ width: "40%" }}
+				sx={{ width: "40%", borderColor: "black" }}
 				value={searchValue}
 				onChange={handleSearchChange}
 				InputProps={{
 					endAdornment: (
 						<InputAdornment>
 							<IconButton>
-								<SearchIcon />
+								<SearchIcon sx={{ color: "black" }} />
 							</IconButton>
 						</InputAdornment>
 					),

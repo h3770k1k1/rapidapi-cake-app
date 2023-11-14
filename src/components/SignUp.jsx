@@ -1,7 +1,7 @@
 import React from "react";
 import { TextField, Button, Container, Typography } from "@mui/material";
 import Logo from "./Logo";
-
+import SignUpPic from "./signup.png";
 const SignUpContainer = () => {
 	return (
 		<Container
@@ -15,7 +15,7 @@ const SignUpContainer = () => {
 			}}
 		>
 			<div id="login-container">
-				<Logo />
+				<img src={SignUpPic} style={{ width: "60%" }} />
 				<Typography
 					variant="h6"
 					style={{ marginTop: "20px", marginBottom: "10px" }}
@@ -48,7 +48,17 @@ const SignUpContainer = () => {
 					<Button
 						variant="contained"
 						color="primary"
-						style={{ marginTop: "10px", marginBottom: "10px" }}
+						style={{
+							marginTop: "10px",
+							marginBottom: "10px",
+							marginTop: "10px",
+							marginBottom: "10px",
+							fontWeight: "700",
+							border: "3px solid black",
+							borderRadius: "20px",
+							webkitBoxShadow: "-3px 8px 0px 0px rgba(0, 0, 0, 1)",
+							boxShadow: "-2px 4px 0px 0px rgba(0, 0, 0, 1)",
+						}}
 					>
 						Sign Up
 					</Button>

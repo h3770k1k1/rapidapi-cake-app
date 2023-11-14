@@ -12,6 +12,7 @@ import {
 import Logo from "./Logo";
 import SignUp from "./SignUp";
 import "./Login.css";
+import LoginPic from "./loginpic.png";
 
 const LoginContainer = () => {
 	const [showSignUp, setShowSignUp] = useState(false);
@@ -41,7 +42,7 @@ const LoginContainer = () => {
 			}}
 		>
 			<div id="login-container">
-				<Logo />
+				<img src={LoginPic} alt="Login" style={{ width: "60%" }} />
 				<Typography
 					variant="h6"
 					style={{ marginTop: "20px", marginBottom: "10px" }}
@@ -67,7 +68,15 @@ const LoginContainer = () => {
 						<Button
 							variant="contained"
 							color="primary"
-							style={{ marginTop: "10px", marginBottom: "10px" }}
+							style={{
+								marginTop: "10px",
+								marginBottom: "10px",
+								fontWeight: "700",
+								border: "3px solid black",
+								borderRadius: "20px",
+								webkitBoxShadow: "-3px 8px 0px 0px rgba(0, 0, 0, 1)",
+								boxShadow: "-2px 4px 0px 0px rgba(0, 0, 0, 1)",
+							}}
 						>
 							Log in
 						</Button>
@@ -84,7 +93,11 @@ const LoginContainer = () => {
 						<Typography
 							variant="h6"
 							onClick={handleOpenModal}
-							sx={{ textDecoration: "underline", cursor: "pointer" }}
+							sx={{
+								textDecoration: "underline",
+								cursor: "pointer",
+								color: "primary.main",
+							}}
 						>
 							{" "}
 							Sign up
@@ -114,6 +127,10 @@ const LoginContainer = () => {
 							p: 4,
 							borderRadius: "4px",
 							outline: "none",
+							border: "3px solid black",
+							borderRadius: "15px",
+							webkitBoxShadow: "-3px 8px 0px 0px rgba(0, 0, 0, 1)",
+							boxShadow: "-2px 4px 0px 0px rgba(0, 0, 0, 1)",
 						}}
 					>
 						<SignUp />

@@ -8,6 +8,9 @@ const SelectOption = ({ children, ...props }) => {
 
 	return (
 		<MenuItem
+			sx={{
+				
+			}}
 			{...props}
 			selected={selectedFilters.includes(value)}
 			className="menu-item"

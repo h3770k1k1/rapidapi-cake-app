@@ -68,6 +68,10 @@ const Navbar = () => {
 							p: 4,
 							borderRadius: "4px",
 							outline: "none",
+							border: "3px solid black",
+							borderRadius: "15px",
+							webkitBoxShadow: "-3px 8px 0px 0px rgba(0, 0, 0, 1)",
+							boxShadow: "-2px 4px 0px 0px rgba(0, 0, 0, 1)",
 						}}
 					>
 						{/* Wyświetlamy komponent LoginContainer w okienku */}
