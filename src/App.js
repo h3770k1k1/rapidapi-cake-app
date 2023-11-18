@@ -6,7 +6,7 @@ import SearchBar from "./components/SearchBar";
 import FiltersDropDown from "./components/FiltersDropDown";
 import React, { useState } from "react";
 import { Grid } from "@mui/material";
-
+import AuthDetails from "./components/AuthDetails";
 function App() {
 	const [selectedFilters, setSelectedFilters] = useState([]);
 	const [recipesData, setRecipesData] = useState(null);

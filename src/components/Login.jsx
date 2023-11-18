@@ -13,15 +13,31 @@ import Logo from "./Logo";
 import SignUp from "./SignUp";
 import "./Login.css";
 import LoginPic from "./loginpic.png";
+import { auth } from "../firebase.js";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const LoginContainer = () => {
-	const [showSignUp, setShowSignUp] = useState(false);
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
-
-	const handleSignUpClick = () => {
-		setShowSignUp(true);
+	const signIn = (e) => {
+		e.preventDefault();
+		signInWithEmailAndPassword(auth, email, password)
+			.then((userCredential) => {
+				console.log(userCredential);
+				setIsUserLoggedIn(true);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 	};
 
+	const signOut = () => {
+		// Dodaj kod do obsługi wylogowywania, jeśli to jest potrzebne
+		// Np. poprzez wywołanie funkcji signOut(auth)
+		setIsUserLoggedIn(false);
+	};
 	const handleOpenModal = () => {
 		setIsModalOpen(true);
 	};
@@ -43,67 +59,46 @@ const LoginContainer = () => {
 		>
 			<div id="login-container">
 				<img src={LoginPic} alt="Login" style={{ width: "60%" }} />
-				<Typography
-					variant="h6"
-					style={{ marginTop: "20px", marginBottom: "10px" }}
-				>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-					eiusmod tempor incididunt ut labore et dolore magna aliqua.
-				</Typography>
-				<div>
+				<form onSubmit={isUserLoggedIn ? signOut : signIn}>
+					<h1>{isUserLoggedIn ? "Sign Out" : "Log In to your Account"}</h1>
 					<TextField
-						label="Nazwa użytkownika"
-						variant="outlined"
-						fullWidth
-						margin="normal"
+						type="email"
+						placeholder="Enter your email"
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
 					/>
 					<TextField
 						type="password"
-						label="Hasło"
-						variant="outlined"
-						fullWidth
-						margin="normal"
+						placeholder="Enter your password"
+						value={password}
+						onChange={(e) => setPassword(e.target.value)}
 					/>
-					<a href="/favourites">
-						<Button
-							variant="contained"
-							color="primary"
-							style={{
-								marginTop: "10px",
-								marginBottom: "10px",
-								fontWeight: "700",
-								border: "3px solid black",
-								borderRadius: "20px",
-								webkitBoxShadow: "-3px 8px 0px 0px rgba(0, 0, 0, 1)",
-								boxShadow: "-2px 4px 0px 0px rgba(0, 0, 0, 1)",
-							}}
-						>
-							Log in
-						</Button>
-					</a>
+					<Button type="submit">
+						{isUserLoggedIn ? "Sign Out" : "Log In"}
+					</Button>
+				</form>
+				<Typography
+					variant="h6"
+					style={{
+						display: "flex",
+						flexDirection: "row",
+						justifyContent: "center",
+					}}
+				>
+					Not a member?{" "}
 					<Typography
 						variant="h6"
-						style={{
-							display: "flex",
-							flexDirection: "row",
-							justifyContent: "center",
+						onClick={handleOpenModal}
+						sx={{
+							textDecoration: "underline",
+							cursor: "pointer",
+							color: "primary.main",
 						}}
 					>
-						Not a member?{" "}
-						<Typography
-							variant="h6"
-							onClick={handleOpenModal}
-							sx={{
-								textDecoration: "underline",
-								cursor: "pointer",
-								color: "primary.main",
-							}}
-						>
-							{" "}
-							Sign up
-						</Typography>
+						{" "}
+						Sign up
 					</Typography>
-				</div>
+				</Typography>
 			</div>
 
 			<Modal

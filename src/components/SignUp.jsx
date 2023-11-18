@@ -1,8 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { TextField, Button, Container, Typography } from "@mui/material";
-import Logo from "./Logo";
 import SignUpPic from "./signup.png";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase.js";
+
 const SignUpContainer = () => {
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+
+	const signUp = (e) => {
+		e.preventDefault();
+		createUserWithEmailAndPassword(auth, email, password)
+			.then((userCredential) => {
+				console.log(userCredential);
+				setIsUserLoggedIn(true);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	};
+
 	return (
 		<Container
 			maxWidth="xs"
@@ -23,47 +41,24 @@ const SignUpContainer = () => {
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit
 				</Typography>
 			</div>
-			<div>
-				<TextField
-					label="Nazwa użytkownika"
-					variant="outlined"
-					fullWidth
-					margin="normal"
+			<form onSubmit={signUp}>
+				<h1>{isUserLoggedIn ? "Account Created" : "Create Account"}</h1>
+				<input
+					type="email"
+					placeholder="Enter your email"
+					value={email}
+					onChange={(e) => setEmail(e.target.value)}
 				/>
-				<TextField
+				<input
 					type="password"
-					label="Hasło"
-					variant="outlined"
-					fullWidth
-					margin="normal"
+					placeholder="Enter your password"
+					value={password}
+					onChange={(e) => setPassword(e.target.value)}
 				/>
-				<TextField
-					type="password"
-					label="Powtórz hasło"
-					variant="outlined"
-					fullWidth
-					margin="normal"
-				/>
-				<a href="/favourites">
-					<Button
-						variant="contained"
-						color="primary"
-						style={{
-							marginTop: "10px",
-							marginBottom: "10px",
-							marginTop: "10px",
-							marginBottom: "10px",
-							fontWeight: "700",
-							border: "3px solid black",
-							borderRadius: "20px",
-							webkitBoxShadow: "-3px 8px 0px 0px rgba(0, 0, 0, 1)",
-							boxShadow: "-2px 4px 0px 0px rgba(0, 0, 0, 1)",
-						}}
-					>
-						Sign Up
-					</Button>
-				</a>
-			</div>
+				<button type="submit" disabled={isUserLoggedIn}>
+					{isUserLoggedIn ? "Signed Up" : "Sign Up"}
+				</button>
+			</form>
 		</Container>
 	);
 };
