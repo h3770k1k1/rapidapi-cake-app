@@ -4,7 +4,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import Typography from "@mui/material/Typography";
 import { Box, Modal, Backdrop, Fade, Button } from "@mui/material";
 import "./Navbar.css";
-import Login from "./Login"; // Załóżmy, że komponent LoginContainer znajduje się w tym samym katalogu
+import SignIn from "./SignIn"; // Załóżmy, że komponent LoginContainer znajduje się w tym samym katalogu
 
 const Navbar = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -58,24 +58,10 @@ const Navbar = () => {
 			>
 				<Fade in={isModalOpen}>
 					<Box
-						sx={{
-							position: "absolute",
-							top: "50%",
-							left: "50%",
-							transform: "translate(-50%, -50%)",
-							bgcolor: "white",
-							boxShadow: 24,
-							p: 4,
-							borderRadius: "4px",
-							outline: "none",
-							border: "3px solid black",
-							borderRadius: "15px",
-							webkitBoxShadow: "-3px 8px 0px 0px rgba(0, 0, 0, 1)",
-							boxShadow: "-2px 4px 0px 0px rgba(0, 0, 0, 1)",
-						}}
+						
 					>
 						{/* Wyświetlamy komponent LoginContainer w okienku */}
-						<Login />
+						<SignIn />
 					</Box>
 				</Fade>
 			</Modal>

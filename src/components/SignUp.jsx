@@ -30,34 +30,54 @@ const SignUpContainer = () => {
 				alignItems: "center",
 				justifyContent: "center",
 				textAlign: "center",
+				position: "absolute",
+				top: "50%",
+				left: "50%",
+				transform: "translate(-50%, -50%)",
+				bgcolor: "white",
+				boxShadow: 24,
+				p: 4,
+				borderRadius: "4px",
+				outline: "none",
+				border: "3px solid black",
+				borderRadius: "15px",
+				webkitBoxShadow: "-3px 8px 0px 0px rgba(0, 0, 0, 1)",
+				boxShadow: "-2px 4px 0px 0px rgba(0, 0, 0, 1)",
+				height: "90%",
 			}}
 		>
-			<div id="login-container">
-				<img src={SignUpPic} style={{ width: "60%" }} />
-				<Typography
-					variant="h6"
-					style={{ marginTop: "20px", marginBottom: "10px" }}
-				>
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit
-				</Typography>
-			</div>
-			<form onSubmit={signUp}>
-				<h1>{isUserLoggedIn ? "Account Created" : "Create Account"}</h1>
-				<input
+			<img src={SignUpPic} style={{ width: "60%" }} />
+			<h1>{isUserLoggedIn ? "Account Created" : "Create Account"}</h1>
+
+			<Typography variant="h6" style={{}}>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit
+			</Typography>
+
+			<form
+				onSubmit={signUp}
+				style={{
+					display: "flex",
+					flexDirection: "column",
+					alignItems: "space-between",
+				}}
+			>
+				<TextField
 					type="email"
 					placeholder="Enter your email"
 					value={email}
 					onChange={(e) => setEmail(e.target.value)}
+					sx={{ width: 1, marginTop: "1rem" }}
 				/>
-				<input
+				<TextField
 					type="password"
 					placeholder="Enter your password"
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}
+					sx={{ width: 1, marginTop: "1rem" }}
 				/>
-				<button type="submit" disabled={isUserLoggedIn}>
+				<Button type="submit" variant="contained" disabled={isUserLoggedIn}>
 					{isUserLoggedIn ? "Signed Up" : "Sign Up"}
-				</button>
+				</Button>
 			</form>
 		</Container>
 	);

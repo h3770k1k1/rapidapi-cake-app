@@ -16,7 +16,7 @@ import AuthDetails from "./AuthDetails"; // Import AuthDetails component
 import SignUp from "./SignUp";
 import LoginPic from "./loginpic.png";
 
-const LoginContainer = () => {
+const SignInContainer = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
@@ -78,33 +78,61 @@ const LoginContainer = () => {
 				alignItems: "center",
 				justifyContent: "center",
 				textAlign: "center",
+				position: "absolute",
+				top: "50%",
+				left: "50%",
+				transform: "translate(-50%, -50%)",
+				bgcolor: "white",
+				boxShadow: 24,
+				p: 4,
+				borderRadius: "4px",
+				outline: "none",
+				border: "3px solid black",
+				borderRadius: "15px",
+				webkitBoxShadow: "-3px 8px 0px 0px rgba(0, 0, 0, 1)",
+				boxShadow: "-2px 4px 0px 0px rgba(0, 0, 0, 1)",
+				height: "90%",
 			}}
 		>
 			<div id="login-container">
 				<AuthDetails /> {/* Display user details and log out button */}
 				<img src={LoginPic} alt="Login" style={{ width: "60%" }} />
-				<form onSubmit={isUserLoggedIn ? handleSignOut : signIn}>
-					<h1>{isUserLoggedIn ? "Sign Out" : "Log In to your Account"}</h1>
+				<form
+					onSubmit={isUserLoggedIn ? handleSignOut : signIn}
+					style={{
+						display: "flex",
+						flexDirection: "column",
+						alignItems: "space-between",
+					}}
+				>
+					<h1>{isUserLoggedIn ? "Sign Out" : "Sign In"}</h1>
 					<TextField
 						type="email"
 						placeholder="Enter your email"
+						size="medium"
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
+						sx={{ width: 1, marginTop: "1rem" }}
 					/>
 					<TextField
 						type="password"
 						placeholder="Enter your password"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
+						sx={{ width: 1, marginTop: "1rem" }}
 					/>
+					<br />
 					{isUserLoggedIn ? (
-						<Button type="button" onClick={handleSignOut}>
+						<Button type="button" variant="contained" onClick={handleSignOut}>
 							Sign Out
 						</Button>
 					) : (
 						<>
-							<Button type="submit">Log In</Button>
-							<button onClick={handleClick}>Sign In With Google</button>
+							<Button type="submit" variant="contained">
+								Log In
+							</Button>
+							<br />
+							<Button onClick={handleClick}>Sign In With Google</Button>
 						</>
 					)}
 				</form>
@@ -141,23 +169,7 @@ const LoginContainer = () => {
 				}}
 			>
 				<Fade in={isModalOpen}>
-					<Box
-						sx={{
-							position: "absolute",
-							top: "50%",
-							left: "50%",
-							transform: "translate(-50%, -50%)",
-							bgcolor: "white",
-							boxShadow: 24,
-							p: 4,
-							borderRadius: "4px",
-							outline: "none",
-							border: "3px solid black",
-							borderRadius: "15px",
-							webkitBoxShadow: "-3px 8px 0px 0px rgba(0, 0, 0, 1)",
-							boxShadow: "-2px 4px 0px 0px rgba(0, 0, 0, 1)",
-						}}
-					>
+					<Box>
 						<SignUp />
 					</Box>
 				</Fade>
@@ -166,4 +178,4 @@ const LoginContainer = () => {
 	);
 };
 
-export default LoginContainer;
+export default SignInContainer;
