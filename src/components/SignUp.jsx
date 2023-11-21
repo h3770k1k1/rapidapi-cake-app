@@ -27,8 +27,7 @@ const SignUpContainer = () => {
 			sx={{
 				display: "flex",
 				flexDirection: "column",
-				alignItems: "center",
-				justifyContent: "center",
+				alignItems: "space-between",
 				textAlign: "center",
 				position: "absolute",
 				top: "50%",
@@ -46,39 +45,51 @@ const SignUpContainer = () => {
 				height: "90%",
 			}}
 		>
-			<img src={SignUpPic} style={{ width: "60%" }} />
-			<h1>{isUserLoggedIn ? "Account Created" : "Create Account"}</h1>
+			<div id="signup-container">
+				<div>
+					<img src={SignUpPic} style={{ width: "60%" }} />
+				</div>
+				<h1>{isUserLoggedIn ? "Account Created" : "Create Account"}</h1>
 
-			<Typography variant="h6" style={{}}>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit
-			</Typography>
+				<Typography variant="h6" style={{}}>
+					Lorem ipsum dolor sit amet, consectetur adipiscing elit
+				</Typography>
 
-			<form
-				onSubmit={signUp}
-				style={{
-					display: "flex",
-					flexDirection: "column",
-					alignItems: "space-between",
-				}}
-			>
-				<TextField
-					type="email"
-					placeholder="Enter your email"
-					value={email}
-					onChange={(e) => setEmail(e.target.value)}
-					sx={{ width: 1, marginTop: "1rem" }}
-				/>
-				<TextField
-					type="password"
-					placeholder="Enter your password"
-					value={password}
-					onChange={(e) => setPassword(e.target.value)}
-					sx={{ width: 1, marginTop: "1rem" }}
-				/>
-				<Button type="submit" variant="contained" disabled={isUserLoggedIn}>
-					{isUserLoggedIn ? "Signed Up" : "Sign Up"}
-				</Button>
-			</form>
+				<form
+					onSubmit={signUp}
+					style={{
+						display: "flex",
+						flexDirection: "column",
+						alignItems: "space-between",
+						justifyContent: "center",
+					}}
+				>
+					<div>
+						<TextField
+							type="email"
+							placeholder="Enter your email"
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
+							sx={{ width: "80%", marginTop: "1rem" }}
+						/>
+						<TextField
+							type="password"
+							placeholder="Enter your password"
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
+							sx={{ width: "80%", marginTop: "1rem" }}
+						/>
+						<Button
+							type="submit"
+							variant="contained"
+							disabled={isUserLoggedIn}
+							sx={{ marginTop: "1rem", width: "80%" }}
+						>
+							{isUserLoggedIn ? "Signed Up" : "Sign Up"}
+						</Button>
+					</div>
+				</form>
+			</div>
 		</Container>
 	);
 };

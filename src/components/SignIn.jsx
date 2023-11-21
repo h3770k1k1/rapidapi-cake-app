@@ -96,7 +96,7 @@ const SignInContainer = () => {
 		>
 			<div id="login-container">
 				<AuthDetails /> {/* Display user details and log out button */}
-				<img src={LoginPic} alt="Login" style={{ width: "60%" }} />
+				<img src={LoginPic} alt="" style={{ width: "60%" }} />
 				<form
 					onSubmit={isUserLoggedIn ? handleSignOut : signIn}
 					style={{
