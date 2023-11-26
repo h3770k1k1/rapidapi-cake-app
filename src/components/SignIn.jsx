@@ -15,9 +15,14 @@ import { signInWithPopup, signOut } from "firebase/auth";
 import AuthDetails from "./AuthDetails"; // Import AuthDetails component
 import SignUp from "./SignUp";
 import LoginPic from "./loginpic.png";
-import ClearIcon from '@mui/icons-material/Clear';
+import {
+	getAuth,
+	GoogleAuthProvider,
+	signInWithRedirect,
+	getRedirectResult,
+} from "firebase/auth";
 
-const SignInContainer = () => {
+const SignInContainer = ({ onLogin }) => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
@@ -43,7 +48,7 @@ const SignInContainer = () => {
 		signInWithEmailAndPassword(auth, email, password)
 			.then((userCredential) => {
 				console.log(userCredential);
-				setIsUserLoggedIn(true);
+				onLogin(userCredential.user); // Notify Navbar of successful login
 			})
 			.catch((error) => {
 				console.log(error);
@@ -51,9 +56,11 @@ const SignInContainer = () => {
 	};
 
 	const handleClick = () => {
-		signInWithPopup(auth, provider).then((data) => {
-			setEmail(data.user.email);
-		});
+		const provider = new GoogleAuthProvider();
+		signInWithRedirect(auth, provider); //z przekierowaniem
+		/*signInWithPopup(auth, provider).then((data) => {
+			setEmail(data.user.email); //z popupem
+		});*/
 	};
 
 	const handleSignOut = () => {

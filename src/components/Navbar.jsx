@@ -3,11 +3,12 @@ import AppBar from "@mui/material/AppBar";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Typography from "@mui/material/Typography";
 import { Box, Modal, Backdrop, Fade, Button } from "@mui/material";
-import "./Navbar.css";
 import SignIn from "./SignIn"; // Załóżmy, że komponent LoginContainer znajduje się w tym samym katalogu
 
 const Navbar = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [userName, setUserName] = useState("");
 
 	const handleOpenModal = () => {
 		setIsModalOpen(true);
@@ -16,7 +17,16 @@ const Navbar = () => {
 	const handleCloseModal = () => {
 		setIsModalOpen(false);
 	};
+	const handleLogin = (user) => {
+		setIsLoggedIn(true);
+		setUserName(user.email); // You can customize this based on your user data
+		handleCloseModal();
+	};
 
+	const handleLogout = () => {
+		setIsLoggedIn(false);
+		// Additional logout logic if needed
+	};
 	return (
 		<>
 			<AppBar
@@ -39,6 +49,8 @@ const Navbar = () => {
 					</Typography>
 				</Box>
 				<Box sx={{ display: "flex", alignItems: "center" }}>
+					<Typography>{userName}</Typography>
+
 					<FavoriteIcon
 						fontSize="large"
 						onClick={handleOpenModal}
@@ -57,11 +69,9 @@ const Navbar = () => {
 				}}
 			>
 				<Fade in={isModalOpen}>
-					<Box
-						
-					>
+					<Box>
 						{/* Wyświetlamy komponent LoginContainer w okienku */}
-						<SignIn />
+						<SignIn onLogin={handleLogin} />
 					</Box>
 				</Fade>
 			</Modal>

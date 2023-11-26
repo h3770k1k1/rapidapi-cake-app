@@ -1,21 +1,13 @@
 import React, { useState } from "react";
-import {
-	TextField,
-	Button,
-	Container,
-	Typography,
-	IconButton,
-} from "@mui/material";
+import { TextField, Button, Container, Typography } from "@mui/material";
 import SignUpPic from "./signup.png";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase.js";
-import ClearIcon from "@mui/icons-material/Clear";
 
-const SignUpContainer = ({ handleCloseModal }) => {
+const SignUpContainer = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const signUp = (e) => {
 		e.preventDefault();
@@ -27,11 +19,6 @@ const SignUpContainer = ({ handleCloseModal }) => {
 			.catch((error) => {
 				console.log(error);
 			});
-	};
-	const handleClose = () => {
-		setIsUserLoggedIn(false);
-		handleCloseModal();
-		console.log("gowno"); // Call the provided handleCloseModal function
 	};
 
 	return (
@@ -58,19 +45,13 @@ const SignUpContainer = ({ handleCloseModal }) => {
 				height: "90%",
 			}}
 		>
-			<IconButton
-				onClick={handleClose}
-				style={{ position: "absolute", top: "0", right: "0", padding: "1rem" }}
-			>
-				<ClearIcon />
-			</IconButton>
 			<div id="signup-container">
 				<div>
-					<img src={SignUpPic} style={{ width: "60%" }} alt="Signup" />
+					<img src={SignUpPic} style={{ width: "60%" }} />
 				</div>
 				<h1>{isUserLoggedIn ? "Account Created" : "Create Account"}</h1>
 
-				<Typography variant="h6">
+				<Typography variant="h6" style={{}}>
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit
 				</Typography>
 

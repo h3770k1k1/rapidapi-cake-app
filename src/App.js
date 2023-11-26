@@ -104,7 +104,7 @@ function App() {
 					handleCloseModal={handleCloseModal}
 				/>
 			)}
-			<SignUpContainer handleCloseModal={handleCloseModal} />
+			
 		</div>
 	);
 }
