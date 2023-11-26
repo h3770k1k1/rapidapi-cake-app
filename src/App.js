@@ -7,6 +7,8 @@ import FiltersDropDown from "./components/FiltersDropDown";
 import React, { useState } from "react";
 import { Grid } from "@mui/material";
 import AuthDetails from "./components/AuthDetails";
+import SignUpContainer from "./components/SignUp.jsx";
+
 function App() {
 	const [selectedFilters, setSelectedFilters] = useState([]);
 	const [recipesData, setRecipesData] = useState(null);
@@ -16,7 +18,11 @@ function App() {
 	const handleFilterChange = (selectedValues) => {
 		setSelectedFilters(selectedValues);
 	};
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
+	const handleCloseModal = () => {
+		setIsModalOpen(false);
+	};
 	const filters = [
 		{ label: "All", value: "all" },
 		{ label: "Easy", value: "Easy" },
@@ -29,13 +35,14 @@ function App() {
 		const options = {
 			method: "GET",
 			headers: {
-				"X-RapidAPI-Key": "e0be72b194mshb8599fec2da2e58p10e79fjsn1fa5a01f70bd",
+				"X-RapidAPI-Key": "803d7d600emshe3481c95cd86cf9p11480cjsn6465da821ec9",
 				"X-RapidAPI-Host": "the-birthday-cake-db.p.rapidapi.com",
 			},
 		};
 
 		try {
 			const response = await fetch(url, options);
+			console.log(response);
 			const result = await response.json();
 			setRecipesData(result);
 			setIsDropdownDisabled(false);
@@ -47,6 +54,7 @@ function App() {
 	// Nowa funkcja do automatycznego ładowania przepisów przy pierwszym renderowaniu
 	React.useEffect(() => {
 		handleLoadRecipesClick();
+		console.log("xd");
 	}, []);
 
 	// Nowa funkcja obsługująca kliknięcie przycisku "Show All Recipes"
@@ -93,8 +101,10 @@ function App() {
 					recipes={recipesData}
 					selectedFilter={selectedFilters}
 					searchQuery={searchQuery}
+					handleCloseModal={handleCloseModal}
 				/>
 			)}
+			<SignUpContainer handleCloseModal={handleCloseModal} />
 		</div>
 	);
 }

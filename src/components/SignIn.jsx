@@ -15,6 +15,7 @@ import { signInWithPopup, signOut } from "firebase/auth";
 import AuthDetails from "./AuthDetails"; // Import AuthDetails component
 import SignUp from "./SignUp";
 import LoginPic from "./loginpic.png";
+import ClearIcon from '@mui/icons-material/Clear';
 
 const SignInContainer = () => {
 	const [email, setEmail] = useState("");

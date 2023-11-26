@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import {
 	Container,
@@ -7,6 +7,9 @@ import {
 	CardContent,
 	Typography,
 	IconButton,
+	Modal,
+	Backdrop,
+	Fade,
 } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import IosShareIcon from "@mui/icons-material/IosShare";
@@ -15,9 +18,11 @@ import Masonry from "@mui/lab/Masonry";
 import Rating from "@mui/material/Rating";
 import CakeIcon from "@mui/icons-material/Cake";
 import CakeOutlinedIcon from "@mui/icons-material/CakeOutlined";
+import SignIn from "./SignIn";
 
 function RecipesList({ recipes, selectedFilter, searchQuery }) {
 	const [hoveredRecipeId, setHoveredRecipeId] = React.useState(null);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const handleMouseEnter = (recipeId) => {
 		setHoveredRecipeId(recipeId);
@@ -25,6 +30,14 @@ function RecipesList({ recipes, selectedFilter, searchQuery }) {
 
 	const handleMouseLeave = () => {
 		setHoveredRecipeId(null);
+	};
+
+	const handleOpenModal = () => {
+		setIsModalOpen(true);
+	};
+
+	const handleCloseModal = () => {
+		setIsModalOpen(false);
 	};
 
 	// Funkcja pomocnicza do zaznaczania pasujących liter w nazwie przepisu
@@ -53,104 +66,108 @@ function RecipesList({ recipes, selectedFilter, searchQuery }) {
 		<Container maxWidth="lg" sx={{ marginTop: "1%" }}>
 			<Masonry spacing={3} columns={4}>
 				{filteredRecipes.map((recipe, index) => (
-					<Link
-						to={`/recipe/${recipe.title}/${recipe.id}/${recipe.difficulty}`}
-						style={{ textDecoration: "none" }}
+					<Card
+						sx={{
+							width: "100%",
+							display: "flex",
+							flexDirection: "column",
+							position: "relative",
+							backgroundColor:
+								cardBackgroundColors[index % cardBackgroundColors.length],
+							border: "3px solid black",
+							WebkitBoxShadow: "-2px 6px 0px 0px rgba(0, 0, 0, 1)",
+							boxShadow: " -2px 6px 0px 0px rgba(0, 0, 0, 1)",
+							borderRadius: "10px",
+						}}
+						onMouseEnter={() => handleMouseEnter(recipe.id)}
+						onMouseLeave={handleMouseLeave}
 					>
-						<Card
-							sx={{
-								width: "100%",
-								display: "flex",
-								flexDirection: "column",
-								position: "relative",
-								backgroundColor:
-									cardBackgroundColors[index % cardBackgroundColors.length],
-								border: "3px solid black",
-								WebkitBoxShadow: "-2px 6px 0px 0px rgba(0, 0, 0, 1)",
-								boxShadow: " -2px 6px 0px 0px rgba(0, 0, 0, 1)",
-								borderRadius: "10px",
-							}}
-							onMouseEnter={() => handleMouseEnter(recipe.id)}
-							onMouseLeave={handleMouseLeave}
-						>
-							<CardContent>
-								<Box
-									sx={{
-										backgroundColor: "primary.light",
-										width: "100%",
-										height: "20rem",
-									}}
-								>
-									<img
-										src={`https://apipics.s3.amazonaws.com/cakes_api/${recipe.id}.jpg`}
-										alt={recipe.title}
-										style={{
-											width: "100%",
-											height: "100%",
-											objectFit: "cover",
-											objectPosition: "top 0",
-										}}
-									/>
-								</Box>
-								<Typography
-									variant="h6"
-									component="h2"
-									fontWeight={700}
-									gutterBottom
-								>
-									<span
-										dangerouslySetInnerHTML={{
-											__html: highlightMatchingLetters(
-												recipe.title,
-												searchQuery
-											),
-										}}
-									/>
-								</Typography>
-								<Typography variant="subtitle1" color="textSecondary">
-									Opis
-								</Typography>
-							</CardContent>
-							{hoveredRecipeId === recipe.id && (
-								<div
+						<CardContent>
+							<Box
+								sx={{
+									backgroundColor: "primary.light",
+									width: "100%",
+									height: "20rem",
+								}}
+							>
+								<img
+									src={`https://apipics.s3.amazonaws.com/cakes_api/${recipe.id}.jpg`}
+									alt={recipe.title}
 									style={{
-										position: "absolute",
-										bottom: 0,
-										left: 0,
+										width: "100%",
+										height: "100%",
+										objectFit: "cover",
+										objectPosition: "top 0",
 									}}
-								>
-									<IconButton>
-										<FavoriteIcon />
-									</IconButton>
-									<IconButton>
-										<IosShareIcon />
-									</IconButton>
-								</div>
-							)}
+								/>
+							</Box>
+							<Typography
+								variant="h6"
+								component="h2"
+								fontWeight={700}
+								gutterBottom
+							>
+								<span
+									dangerouslySetInnerHTML={{
+										__html: highlightMatchingLetters(recipe.title, searchQuery),
+									}}
+								/>
+							</Typography>
+							<Typography variant="subtitle1" color="textSecondary">
+								Opis
+							</Typography>
+						</CardContent>
+						{hoveredRecipeId === recipe.id && (
 							<div
 								style={{
 									position: "absolute",
-									bottom: 5,
-									right: 0,
-									display: "flex",
-									alignItems: "center",
-									marginRight: "1rem",
+									bottom: 0,
+									left: 0,
 								}}
 							>
-								{/* Use Rating component to display difficulty */}
-								<Rating
-									value={difficultyToRatingValue(recipe.difficulty)}
-									max={3}
-									readOnly
-									icon={<CakeIcon sx={{ color: "black" }} />}
-									emptyIcon={<CakeOutlinedIcon sx={{ color: "black" }} />}
-								/>
+								<IconButton onClick={handleOpenModal}>
+									<FavoriteIcon />
+								</IconButton>
 							</div>
-							<span style={{ flex: 1 }} />
-						</Card>
-					</Link>
+						)}
+						<div
+							style={{
+								position: "absolute",
+								bottom: 5,
+								right: 0,
+								display: "flex",
+								alignItems: "center",
+								marginRight: "1rem",
+							}}
+						>
+							{/* Use Rating component to display difficulty */}
+							<Rating
+								value={difficultyToRatingValue(recipe.difficulty)}
+								max={3}
+								readOnly
+								icon={<CakeIcon sx={{ color: "black" }} />}
+								emptyIcon={<CakeOutlinedIcon sx={{ color: "black" }} />}
+							/>
+						</div>
+						<span style={{ flex: 1 }} />
+					</Card>
 				))}
 			</Masonry>
+			<Modal
+				open={isModalOpen}
+				onClose={handleCloseModal}
+				closeAfterTransition
+				BackdropComponent={Backdrop}
+				BackdropProps={{
+					timeout: 500,
+				}}
+			>
+				<Fade in={isModalOpen}>
+					<div>
+						<SignIn />
+					</div>
+				</Fade>
+			</Modal>
 		</Container>
 	);
 }
