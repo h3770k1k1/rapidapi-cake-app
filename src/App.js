@@ -7,17 +7,26 @@ import FiltersDropDown from "./components/FiltersDropDown";
 import React, { useState } from "react";
 import { Grid } from "@mui/material";
 import AuthDetails from "./components/AuthDetails";
-import SignUpContainer from "./components/SignUp.jsx";
-
+import SignInContainer from "./components/SignIn.jsx";
 function App() {
 	const [selectedFilters, setSelectedFilters] = useState([]);
 	const [recipesData, setRecipesData] = useState(null);
 	const [isDropdownDisabled, setIsDropdownDisabled] = useState(true);
-	const [searchQuery, setSearchQuery] = useState(""); // Dodajemy stan dla wartości wyszukiwania
+	const [searchQuery, setSearchQuery] = useState(""); 
+	const [authUser, setAuthUser] = useState(null); // Dodajemy stan dla zalogowanego użytkownika
 
 	const handleFilterChange = (selectedValues) => {
 		setSelectedFilters(selectedValues);
 	};
+
+	const handleLogin = (user) => {
+		setAuthUser(user); // Ustawiamy stan zalogowanego użytkownika
+	};
+
+	const handleLogout = () => {
+		setAuthUser(null); // Czyścimy stan zalogowanego użytkownika
+	};
+
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const handleCloseModal = () => {
@@ -67,7 +76,7 @@ function App() {
 
 	return (
 		<div className="App">
-			<Navbar />
+			<Navbar authUser={authUser} onLogout={handleLogout} />
 			<Grid
 				container
 				direction="column"
@@ -104,7 +113,7 @@ function App() {
 					handleCloseModal={handleCloseModal}
 				/>
 			)}
-			
+			<SignInContainer onLogin={handleLogin} />
 		</div>
 	);
 }

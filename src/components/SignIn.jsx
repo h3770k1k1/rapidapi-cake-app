@@ -25,50 +25,24 @@ import {
 const SignInContainer = ({ onLogin }) => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
-
-	useEffect(() => {
-		// Check if the user is already logged in
-		const unsubscribe = auth.onAuthStateChanged((user) => {
-			if (user) {
-				setIsUserLoggedIn(true);
-			} else {
-				setIsUserLoggedIn(false);
-			}
-		});
-
-		return () => {
-			unsubscribe();
-		};
-	}, []);
-
+	const handleClick = () => {
+		const provider = new GoogleAuthProvider();
+		signInWithRedirect(auth, provider); //z przekierowaniem
+		/*signInWithPopup(auth, provider).then((data) => {
+		setEmail(data.user.email); //z popupem
+	});*/
+	};
 	const signIn = (e) => {
 		e.preventDefault();
 		signInWithEmailAndPassword(auth, email, password)
 			.then((userCredential) => {
-				console.log(userCredential);
-				onLogin(userCredential.user); // Notify Navbar of successful login
+				onLogin(userCredential.user);
 			})
 			.catch((error) => {
 				console.log(error);
 			});
 	};
-
-	const handleClick = () => {
-		const provider = new GoogleAuthProvider();
-		signInWithRedirect(auth, provider); //z przekierowaniem
-		/*signInWithPopup(auth, provider).then((data) => {
-			setEmail(data.user.email); //z popupem
-		});*/
-	};
-
-	const handleSignOut = () => {
-		signOut(auth).then(() => {
-			setIsUserLoggedIn(false);
-		});
-	};
-
 	const handleOpenModal = () => {
 		setIsModalOpen(true);
 	};
@@ -76,7 +50,6 @@ const SignInContainer = ({ onLogin }) => {
 	const handleCloseModal = () => {
 		setIsModalOpen(false);
 	};
-
 	return (
 		<Container
 			maxWidth="xs"
@@ -100,73 +73,28 @@ const SignInContainer = ({ onLogin }) => {
 				webkitBoxShadow: "-3px 8px 0px 0px rgba(0, 0, 0, 1)",
 				boxShadow: "-2px 4px 0px 0px rgba(0, 0, 0, 1)",
 				height: "90%",
+				backgroundColor: "white",
+				zIndex: "10",
 			}}
 		>
-			<div id="login-container">
-				<AuthDetails /> {/* Display user details and log out button */}
+			<div>
+				<AuthDetails onLogout={onLogin} />
 				<img src={LoginPic} alt="" style={{ width: "60%" }} />
-				<form
-					onSubmit={isUserLoggedIn ? handleSignOut : signIn}
-					style={{
-						display: "flex",
-						flexDirection: "column",
-						alignItems: "space-between",
-					}}
-				>
-					<h1>{isUserLoggedIn ? "Sign Out" : "Sign In"}</h1>
-					<TextField
+				<form onSubmit={signIn}>
+					<input
 						type="email"
-						placeholder="Enter your email"
-						size="medium"
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
-						sx={{ width: 1, marginTop: "1rem" }}
 					/>
-					<TextField
+					<input
 						type="password"
-						placeholder="Enter your password"
 						value={password}
 						onChange={(e) => setPassword(e.target.value)}
-						sx={{ width: 1, marginTop: "1rem" }}
 					/>
-					<br />
-					{isUserLoggedIn ? (
-						<Button type="button" variant="contained" onClick={handleSignOut}>
-							Sign Out
-						</Button>
-					) : (
-						<>
-							<Button type="submit" variant="contained">
-								Log In
-							</Button>
-							<br />
-							<Button onClick={handleClick}>Sign In With Google</Button>
-						</>
-					)}
+					<button type="submit">Sign In</button>
+					<Button onClick={handleClick}>Sign In With Google</Button>
 				</form>
-				<Typography
-					variant="h6"
-					style={{
-						display: "flex",
-						flexDirection: "row",
-						justifyContent: "center",
-					}}
-				>
-					Not a member?{" "}
-					<Typography
-						variant="h6"
-						onClick={handleOpenModal}
-						sx={{
-							textDecoration: "underline",
-							cursor: "pointer",
-							color: "primary.main",
-						}}
-					>
-						Sign up
-					</Typography>
-				</Typography>
 			</div>
-
 			<Modal
 				open={isModalOpen}
 				onClose={handleCloseModal}
