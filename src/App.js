@@ -8,6 +8,7 @@ import React, { useState } from "react";
 import { Grid } from "@mui/material";
 import AuthDetails from "./components/AuthDetails";
 import SignUpContainer from "./components/SignUp.jsx";
+import { AuthProvider } from "./components/AuthProvider";
 
 function App() {
 	const [selectedFilters, setSelectedFilters] = useState([]);
@@ -66,46 +67,47 @@ function App() {
 	};
 
 	return (
-		<div className="App">
-			<Navbar />
-			<Grid
-				container
-				direction="column"
-				spacing={"1.5%"}
-				sx={{ marginTop: "1%", marginBottom: "1%" }}
-			>
-				<Grid item>
-					<SearchBar onSearchChange={handleSearchChange} />
+		<AuthProvider>
+			<div className="App">
+				<Navbar />
+				<Grid
+					container
+					direction="column"
+					spacing={"1.5%"}
+					sx={{ marginTop: "1%", marginBottom: "1%" }}
+				>
+					<Grid item>
+						<SearchBar onSearchChange={handleSearchChange} />
+					</Grid>
+					<Grid item>
+						<FiltersDropDown
+							filters={filters}
+							selectedFilters={selectedFilters}
+							onFilterChange={handleFilterChange}
+							disabled={isDropdownDisabled}
+						/>
+					</Grid>
 				</Grid>
-				<Grid item>
-					<FiltersDropDown
-						filters={filters}
-						selectedFilters={selectedFilters}
-						onFilterChange={handleFilterChange}
-						disabled={isDropdownDisabled}
+				{/* Nowy przycisk "Show All Recipes" */}
+				<Button
+					variant="contained"
+					color="secondary"
+					onClick={handleShowAllRecipesClick}
+				>
+					Show All Recipes
+				</Button>
+				{/* Przekazujemy cały zbiór receptur do komponentu RecipesList */}
+				{/* Nie filtrujemy receptur, aż do wyboru filtrów w komponencie FiltersDropDown */}
+				{recipesData && (
+					<RecipesList
+						recipes={recipesData}
+						selectedFilter={selectedFilters}
+						searchQuery={searchQuery}
+						handleCloseModal={handleCloseModal}
 					/>
-				</Grid>
-			</Grid>
-			{/* Nowy przycisk "Show All Recipes" */}
-			<Button
-				variant="contained"
-				color="secondary"
-				onClick={handleShowAllRecipesClick}
-			>
-				Show All Recipes
-			</Button>
-			{/* Przekazujemy cały zbiór receptur do komponentu RecipesList */}
-			{/* Nie filtrujemy receptur, aż do wyboru filtrów w komponencie FiltersDropDown */}
-			{recipesData && (
-				<RecipesList
-					recipes={recipesData}
-					selectedFilter={selectedFilters}
-					searchQuery={searchQuery}
-					handleCloseModal={handleCloseModal}
-				/>
-			)}
-			
-		</div>
+				)}
+
+			</div></AuthProvider>
 	);
 }
 
