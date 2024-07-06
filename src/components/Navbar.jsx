@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Typography from "@mui/material/Typography";
 import { Box, Modal, Backdrop, Fade } from "@mui/material";
 import SignIn from "./SignIn";
-import { useAuth } from "./AuthProvider"; // Import the context
-
+import { useAuth } from "./AuthProvider";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { Link } from 'react-router-dom';
 const Navbar = () => {
-	const { authUser } = useAuth(); // Use the context to get the authUser
+	const { authUser } = useAuth();
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	const handleOpenModal = () => {
@@ -35,17 +36,18 @@ const Navbar = () => {
 				}}
 			>
 				<Box sx={{ display: "flex", alignItems: "center" }}>
-					<Typography className="logo" variant="h4" component="div">
-						Logo
-					</Typography>
+					<Link to="/" style={{ textDecoration: 'none', color: 'black' }}><Typography className="logo" variant="h6" component="div">
+						Cake App
+					</Typography></Link>
 				</Box>
 				<Box sx={{ display: "flex", alignItems: "center" }}>
-					<Typography>{authUser ? authUser.email : ""}</Typography>
-					<FavoriteIcon
+					<Typography>{authUser ? `Signed in as: ${authUser.email}` : "Signed out "}</Typography>
+					<AccountCircleIcon
 						fontSize="large"
 						onClick={handleOpenModal}
 						sx={{ cursor: "pointer" }}
 					/>
+					<Link to="/favourites" style={{ underline: 'none', color: "black" }}><FavoriteIcon fontSize="large" /></Link>
 				</Box>
 			</AppBar>
 

@@ -12,8 +12,10 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Link } from "react-router-dom";
+import { AuthProvider } from "./AuthProvider";
 
-function RecipesList() {
+
+function FavouriteRecipesList() {
 	const recipes = [
 		{
 			id: 1,
@@ -32,10 +34,8 @@ function RecipesList() {
 		},
 	];
 
-	// Stan, który będzie określał, na którym przepisie nastąpiło najechanie
 	const [hoveredRecipeId, setHoveredRecipeId] = useState(null);
 
-	// Funkcje obsługujące najechanie i opuszczenie karty (Card)
 	const handleMouseEnter = (recipeId) => {
 		setHoveredRecipeId(recipeId);
 	};
@@ -45,6 +45,7 @@ function RecipesList() {
 	};
 
 	return (
+
 		<Container maxWidth="md">
 			<Grid container spacing={3}>
 				{recipes.map((recipe) => (
@@ -87,4 +88,4 @@ function RecipesList() {
 	);
 }
 
-export default RecipesList;
+export default FavouriteRecipesList;

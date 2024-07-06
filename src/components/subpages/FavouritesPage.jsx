@@ -4,10 +4,14 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import Grid from "@mui/material/Grid";
 import "./FavouritesPage.css";
 import FavouriteRecipesList from "../FavouriteRecipesList";
+import Navbar from "../Navbar";
+import { AuthProvider } from "../AuthProvider";
 
 const FavouritesPage = () => {
 	return (
-		<div className="Favourites">
+		<AuthProvider>
+			<Navbar />
+			<div className="Favourites">
 				<Grid
 					container
 					direction="column"
@@ -23,7 +27,7 @@ const FavouritesPage = () => {
 					</Grid>
 				</Grid>
 				<FavouriteRecipesList />
-		</div>
+			</div></AuthProvider>
 	);
 };
 

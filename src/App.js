@@ -96,8 +96,6 @@ function App() {
 				>
 					Show All Recipes
 				</Button>
-				{/* Przekazujemy cały zbiór receptur do komponentu RecipesList */}
-				{/* Nie filtrujemy receptur, aż do wyboru filtrów w komponencie FiltersDropDown */}
 				{recipesData && (
 					<RecipesList
 						recipes={recipesData}
